@@ -67,7 +67,6 @@ if ( !function_exists( 'espresso_ticketing_install' ) ){
 			ticket_file VARCHAR(100) DEFAULT 'basic.html',
 			ticket_subject VARCHAR(250) DEFAULT NULL,
 			ticket_content TEXT,
-			ticket_logo_url TEXT,
 			ticket_meta LONGTEXT DEFAULT NULL,
 			wp_user int(22) DEFAULT '1',
 			UNIQUE KEY id (id)";
