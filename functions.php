@@ -36,7 +36,7 @@ function espresso_ticket_launch($attendee_id=0, $registration_id=0){
 		return;
 	
 	//Get the event record
-    $sql = "SELECT ed.*, et.ticket_file, et.ticket_content ";
+    $sql = "SELECT ed.*, et.ticket_file, et.ticket_content, et.ticket_logo_url ";
     isset($org_options['use_venue_manager']) && $org_options['use_venue_manager'] == 'Y' ? $sql .= ", v.id venue_id, v.name venue_name, v.address venue_address, v.city venue_city, v.state venue_state, v.zip venue_zip, v.country venue_country, v.meta venue_meta " : '';
     $sql .= " FROM " . EVENTS_DETAIL_TABLE . " ed ";
     isset($org_options['use_venue_manager']) && $org_options['use_venue_manager'] == 'Y' ? $sql .= " LEFT JOIN " . EVENTS_VENUE_REL_TABLE . " r ON r.event_id = ed.id LEFT JOIN " . EVENTS_VENUE_TABLE . " v ON v.id = r.venue_id " : '';
@@ -158,6 +158,7 @@ function espresso_replace_ticket_shortcodes($content, $data) {
 		
 		//Ticket data
 		"[ticket_content]",
+		"[ticket_logo_url]",
 		
 		//Venue information
 		"[venue_title]",
@@ -212,7 +213,8 @@ function espresso_replace_ticket_shortcodes($content, $data) {
 		
 		//Ticket data
 		wpautop(stripslashes_deep(html_entity_decode($data->event->ticket_content, ENT_QUOTES))),
-        
+        $data->event->ticket_logo_url,
+		
 		//Venue information
 		$data->event->venue_name,		
 		$data->event->address,
