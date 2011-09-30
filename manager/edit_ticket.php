@@ -24,6 +24,7 @@ function edit_event_ticket(){
 		$ticket_id= $result->id;
 		$ticket_name=stripslashes_deep($result->ticket_name);
 		$ticket_file=stripslashes_deep($result->ticket_file);
+		$ticket_logo_url=stripslashes_deep($result->ticket_logo_url);
 		$ticket_content=stripslashes_deep($result->ticket_content);
 	}
 	?>
@@ -56,7 +57,25 @@ function edit_event_ticket(){
               <option <?php espresso_ticket_is_selected($fname,$ticket_file) ?> value="<?php echo $fname ?>"><?php echo $fname; ?></option>
               <?php } ?>
             </select>
-          </li>
+          </li><li><div id="ticket-logo-image">
+		  <?php
+									 
+		if(!empty($ticket_logo_url)){ 
+			$ticket_logo = $ticket_logo_url;
+		} else {
+			$ticket_logo = '';
+		}
+		?>
+		  <?php // var_dump($event_meta['event_thumbnail_url']); ?>
+		  <label for="upload_image">
+			<?php _e('Add a Logo', 'event_espresso'); ?>
+		  </label>
+		  <input id="upload_image" type="hidden" size="36" name="upload_image" value="<?php echo $ticket_logo ?>" />
+		  <input id="upload_image_button" type="button" value="Upload Image" />
+		  <?php if($ticket_logo){ ?>
+		  <p class="ticket-logo"><img src="<?php echo $ticket_logo ?>" alt="" /></p>
+		  <?php } ?>
+		</div></li>
           <li>
             <div id="descriptiondivrich" class="postarea">
               <label for="ticket_content">
@@ -91,6 +110,33 @@ function edit_event_ticket(){
     </div>
   </div>
 </div>
+<script type="text/javascript" charset="utf-8">
+	//<![CDATA[
+ 	jQuery(document).ready(function() {    
+			var header_clicked = false; 
+			jQuery('#upload_image_button').click(function() {
+	     formfield = jQuery('#upload_image').attr('name');
+	     tb_show('', 'media-upload.php?type=image&amp;TB_iframe=1');
+				header_clicked = true;
+	    return false;
+	   });
+		window.original_send_to_editor = window.send_to_editor;
+					 
+		window.send_to_editor = function(html) {
+			if(header_clicked) {
+				imgurl = jQuery('img',html).attr('src');
+				jQuery('#' + formfield).val(imgurl);
+				jQuery('#ticket-logo-image').append("<p><img src='"+imgurl+"' alt='' /></p>");
+				header_clicked = false;
+				tb_remove();
+				} else {
+					window.original_send_to_editor(html);
+				}
+		}
+	});
+
+	//]]>
+</script>
 <?php 
  //espresso_tiny_mce();
 }
