@@ -73,7 +73,7 @@ function edit_event_ticket(){
 		  <input id="upload_image" type="hidden" size="36" name="upload_image" value="<?php echo $ticket_logo ?>" />
 		  <input id="upload_image_button" type="button" value="Upload Image" />
 		  <?php if($ticket_logo){ ?>
-		  <p class="ticket-logo"><img src="<?php echo $ticket_logo ?>" alt="" /></p>
+		  <p class="ticket-logo-thumb"><img src="<?php echo $ticket_logo ?>" alt="" /></p>
 		  <?php } ?>
 		</div></li>
           <li>
@@ -113,11 +113,12 @@ function edit_event_ticket(){
 <script type="text/javascript" charset="utf-8">
 	//<![CDATA[
  	jQuery(document).ready(function() {    
-			var header_clicked = false; 
-			jQuery('#upload_image_button').click(function() {
-	     formfield = jQuery('#upload_image').attr('name');
-	     tb_show('', 'media-upload.php?type=image&amp;TB_iframe=1');
-				header_clicked = true;
+		var header_clicked = false; 
+		jQuery('#upload_image_button').click(function() {
+		formfield = jQuery('#upload_image').attr('name');
+		tb_show('', 'media-upload.php?type=image&amp;TB_iframe=1');
+		jQuery('p.ticket-logo-thumb').addClass('old');
+		header_clicked = true;
 	    return false;
 	   });
 		window.original_send_to_editor = window.send_to_editor;
