@@ -14,7 +14,7 @@ function add_ticket_to_db(){
 		
 		$sql_data = array('%s','%s','%s','%s');
 	
-		if ($wpdb->insert( EVENTS_TICKET_SETTINGS, $sql, $sql_data )){?>
+		if ($wpdb->insert( EVENTS_TICKET_TEMPLATES, $sql, $sql_data )){?>
 		<div id="message" class="updated fade"><p><strong><?php _e('The ticket', 'event_espresso'); ?> <?php echo htmlentities2($_REQUEST['ticket_name']);?> <?php _e('has been added.', 'event_espresso'); ?></strong></p></div>
 	<?php }else { ?>
 		<div id="message" class="error"><p><strong><?php _e('The ticket', 'event_espresso'); ?> <?php echo htmlentities2($_REQUEST['ticket_name']);?> <?php _e('was not saved.', 'event_espresso'); ?> <?php print mysql_error() ?>.</strong></p></div>

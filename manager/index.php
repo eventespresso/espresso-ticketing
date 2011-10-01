@@ -26,7 +26,7 @@ function espresso_ticket_config_mnu() {
                             while (list($key, $value) = each($_POST['checkbox'])):
                                 $del_id = $key;
                                 //Delete ticket data
-                                $sql = "DELETE FROM " . EVENTS_TICKET_SETTINGS . " WHERE id='$del_id'";
+                                $sql = "DELETE FROM " . EVENTS_TICKET_TEMPLATES . " WHERE id='$del_id'";
                                 $wpdb->query($sql);
                             endwhile;
                         }
@@ -76,7 +76,7 @@ function espresso_ticket_config_mnu() {
                             </thead>
                             <tbody>
                                 <?php
-                                $sql = "SELECT * FROM " . EVENTS_TICKET_SETTINGS . " e";
+                                $sql = "SELECT * FROM " . EVENTS_TICKET_TEMPLATES . " e";
                                 if (function_exists('espresso_member_data') && ( espresso_member_data('role') == 'espresso_event_manager' || espresso_member_data('role') == 'espresso_group_admin')) {
                                     $sql .= " JOIN $wpdb->users u on u.ID = e.wp_user WHERE e.wp_user = " . $current_user->ID;
                                 }
@@ -97,7 +97,7 @@ function espresso_ticket_config_mnu() {
               </td>                                            <?php if (function_exists('espresso_user_meta') && espresso_is_admin() == true) { ?>
                                                 <td><?php echo espresso_user_meta($wp_user, 'user_firstname') != '' ? espresso_user_meta($wp_user, 'user_firstname') . ' ' . espresso_user_meta($wp_user, 'user_lastname') : espresso_user_meta($wp_user, 'display_name'); ?></td>
                                             <?php } ?>
-                                            <td><a href="admin.php?page=event_tickets&action=edit&id=<?php echo $ticket_id ?>">
+                                            <td><a href="admin.php?page=event_tickets&action=edit_ticket&id=<?php echo $ticket_id ?>">
                                                     <?php _e('Edit Ticket Template', 'event_espresso'); ?>
                                                 </a></td>
                                         </tr>

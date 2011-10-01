@@ -19,7 +19,7 @@ function edit_event_ticket(){
 		closedir($dhandle);
 	}
 	$id=$_REQUEST['id'];
-	$results = $wpdb->get_results("SELECT * FROM ". EVENTS_TICKET_SETTINGS ." WHERE id =".$id);
+	$results = $wpdb->get_results("SELECT * FROM ". EVENTS_TICKET_TEMPLATES ." WHERE id =".$id);
 	foreach ($results as $result){
 		$ticket_id= $result->id;
 		$ticket_name=stripslashes_deep($result->ticket_name);
