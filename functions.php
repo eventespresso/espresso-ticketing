@@ -213,7 +213,7 @@ function espresso_replace_ticket_shortcodes($content, $data) {
 		
 		//Ticket data
 		wpautop(stripslashes_deep(html_entity_decode($data->event->ticket_content, ENT_QUOTES))),
-        $data->event->ticket_logo_url,
+		$data->event->ticket_logo_url = empty($data->event->ticket_logo_url) ? $org_options['default_logo_url']: $data->event->ticket_logo_url,
 		
 		//Venue information
 		$data->event->venue_name,		
