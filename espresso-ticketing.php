@@ -4,7 +4,7 @@
   Plugin URI: http://eventespresso.com/
   Description: Ticketing system for Event Espresso
 
-  Version: 2.0.4
+  Version: 2.0.5
 
   Author: Seth Shoultes
   Author URI: http://www.eventespresso.com
@@ -27,13 +27,12 @@
  */
  
 global $wpdb;
-//global $espresso_path;
+define( "ESPRESSO_TICKETING_VERSION", '2.0.5' );
 define( "ESPRESSO_TICKETING_TABLE", $wpdb->prefix . 'events_ticket_templates');
 define( "ESPRESSO_TICKETING_PATH", "/" . plugin_basename( dirname( __FILE__ ) ) . "/" );
 define( "ESPRESSO_TICKETING_FULL_PATH", WP_PLUGIN_DIR . ESPRESSO_TICKETING_PATH );
 define( "ESPRESSO_TICKETING_FULL_URL", WP_PLUGIN_URL . ESPRESSO_TICKETING_PATH );
 define( "ESPRESSO_TICKETING_ACTIVE", TRUE );
-define( "ESPRESSO_TICKETING_VERSION", '2.0.4' );
 define("EVENTS_TICKET_TEMPLATES", $wpdb->prefix . "events_ticket_templates");
 //echo $espresso_path;
 require_once('functions.php');
