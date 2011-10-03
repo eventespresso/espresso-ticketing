@@ -74,6 +74,9 @@ function espresso_ticket_launch($attendee_id=0, $registration_id=0){
         $data->event->venue_name = !empty($data->event->venue_title)?$data->event->venue_title:'';
     }
 	
+	//Create the Gravatar image
+	$data->gravatar = espresso_get_gravatar($data->attendee->email, $size = '100', $default = 'http://www.gravatar.com/avatar/' );
+	
 	//Google map IMAGE creation
 	$data->event->google_map_image = espresso_google_map_link(array('id' => $data->event->venue_id, 'address' => $data->event->address, 'city' => $data->event->city, 'state' => $data->event->state, 'zip' => $data->event->zip, 'country' => $data->event->country, 'type'=>'map'));
 	
@@ -127,6 +130,7 @@ function espresso_replace_ticket_shortcodes($content, $data) {
 		//Attendee/Event Information
         "[att_id]",
 		"[qr_code]",
+		"[gravatar]",
 		"[event_id]",
         "[event_identifier]",
         "[registration_id]",
@@ -182,6 +186,7 @@ function espresso_replace_ticket_shortcodes($content, $data) {
 		//Attendee/Event Information
 		$data->attendee->id,
 		$data->qr_code,
+		$data->gravatar,
         $data->attendee->event_id,
         $data->event->event_identifier,
         $data->attendee->registration_id,
