@@ -2,7 +2,12 @@
 function add_new_event_ticket(){
 	
 	// read our template dir and build an array of files
-	$dhandle = opendir(ESPRESSO_TICKETING_FULL_PATH . 'templates/');
+	if (file_exists(EVENT_ESPRESSO_TEMPLATE_DIR . "tickets/templates/index.html")) {
+		$dhandle = opendir(EVENT_ESPRESSO_TEMPLATE_DIR . 'tickets/templates/');//If the template files have been moved to the uplaods folder
+	} else {
+		$dhandle = opendir(ESPRESSO_TICKETING_FULL_PATH . 'templates/');
+	}
+	
 	$files = array();
 	
 	if ($dhandle) { //if we managed to open the directory

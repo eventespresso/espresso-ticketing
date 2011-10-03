@@ -113,7 +113,11 @@ function espresso_ticket_launch($attendee_id=0, $registration_id=0){
 	
 	//Get the HTML as an object
     ob_start();
-	require_once('templates/'.$data->event->ticket_file);
+	if (file_exists(EVENT_ESPRESSO_TEMPLATE_DIR . "tickets/templates/index.html")) {
+		require_once(EVENT_ESPRESSO_TEMPLATE_DIR . 'tickets/templates/'.$data->event->ticket_file);
+	} else {
+		require_once('templates/'.$data->event->ticket_file);
+	}
 	$content = ob_get_clean();
 	$content = espresso_replace_ticket_shortcodes($content, $data);
 	
