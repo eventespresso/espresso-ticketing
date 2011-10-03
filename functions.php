@@ -236,7 +236,7 @@ function espresso_replace_ticket_shortcodes($content, $data) {
 		
 		//Logo
 		$data->event->ticket_logo_url,
-		$data->event->ticket_logo_image,
+		$data->event->ticket_logo_image, //Returns the logo wrapped in an image tag
 		
 		//Venue information
 		$data->event->venue_name,		
