@@ -87,6 +87,11 @@ function espresso_ticket_launch($attendee_id=0, $registration_id=0){
 	//Google map LINK creation
 	$data->event->google_map_link = espresso_google_map_link(array('address' => $data->event->address, 'city' => $data->event->city, 'state' => $data->event->state, 'zip' => $data->event->zip, 'country' => $data->event->country, 'type'=>'text'));
 	
+	//Create the logo
+	$data->event->ticket_logo_url = empty($data->event->ticket_logo_url) ? $org_options['default_logo_url']: $data->event->ticket_logo_url;
+	$image_size = getimagesize($data->event->ticket_logo_url);
+	$data->event->ticket_logo_image = '<img src="'.$data->event->ticket_logo_url.'" '.$image_size[3].' alt="logo" /> ';
+	
 	//Create the QR Code image
 	$data->qr_code = espresso_ticket_qr_code( array(
 		'attendee_id' => $data->attendee->id, 
@@ -169,7 +174,10 @@ function espresso_replace_ticket_shortcodes($content, $data) {
 		
 		//Ticket data
 		"[ticket_content]",
+		
+		//Logo
 		"[ticket_logo_url]",
+		"[ticket_logo_image]",
 		
 		//Venue information
 		"[venue_title]",
@@ -225,7 +233,10 @@ function espresso_replace_ticket_shortcodes($content, $data) {
 		
 		//Ticket data
 		wpautop(stripslashes_deep(html_entity_decode($data->event->ticket_content, ENT_QUOTES))),
-		$data->event->ticket_logo_url = empty($data->event->ticket_logo_url) ? $org_options['default_logo_url']: $data->event->ticket_logo_url,
+		
+		//Logo
+		$data->event->ticket_logo_url,
+		$data->event->ticket_logo_image,
 		
 		//Venue information
 		$data->event->venue_name,		
