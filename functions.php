@@ -53,9 +53,13 @@ function espresso_ticket_launch($attendee_id=0, $registration_id=0){
 	//Get the primary/first attendee
 	$data->primary_attendee = espresso_is_primary_attendee($data->attendee->id) == true ? true : false;
 	
+	//unserialize the event meta
+	$data->event->event_meta = unserialize($data->event->event_meta);
+	
 	//Get the registration date
 	$data->attendee->registration_date = $data->attendee->date;
 	
+	//Get the HTML file
 	$data->event->ticket_file = (!empty($data->event->ticket_file) && $data->event->ticket_file > '0') ? $data->event->ticket_file : 'basic.html';
 	//echo $data->event->ticket_file;
 	
@@ -98,8 +102,10 @@ function espresso_ticket_launch($attendee_id=0, $registration_id=0){
 			'reg_total' => true
 		)),
 	));
+	
 	//Build the ticket name
 	$ticket_name = sanitize_title_with_dashes($data->attendee->id.' '.$data->attendee->fname.' '.$data->attendee->lname);
+	
 	//Get the HTML as an object
     ob_start();
 	require_once('templates/'.$data->event->ticket_file);
@@ -124,8 +130,9 @@ function espresso_ticket_launch($attendee_id=0, $registration_id=0){
 	
 }
 
+//Performst the shortcode replacement
 function espresso_replace_ticket_shortcodes($content, $data) {
-    global $org_options;
+    global $wpdb, $org_options;
     $SearchValues = array(
 		//Attendee/Event Information
         "[att_id]",
@@ -237,9 +244,38 @@ function espresso_replace_ticket_shortcodes($content, $data) {
 		$data->event->google_map_image,
         $data->event->google_map_link,
     );
+	
+	//Get the questions and answers
+	$questions = $wpdb->get_results("select qst.question as question, ans.answer as answer from ".EVENTS_ANSWER_TABLE." ans inner join ".EVENTS_QUESTION_TABLE." qst on ans.question_id = qst.id where ans.attendee_id = ".$data->attendee->id, ARRAY_A);
+	//echo '<p>'.print_r($questions).'</p>';
+	if ($wpdb->num_rows > 0 && $wpdb->last_result[0]->question != NULL) {
+		foreach($questions as $q){
+			$k = $q['question'];
+			$v = $q['answer'];
+			
+			//Output the question
+			array_push($SearchValues,"[".'question_'.$k."]");
+			array_push($ReplaceValues,$k);
+			
+			//Output the answer
+			array_push($SearchValues,"[".'answer_'.$k."]");
+			array_push($ReplaceValues,$v);
+		}
+	}
+	
+	//Get the event meta
+	//echo '<p>'.print_r($data->event->event_meta).'</p>';
+	if (!empty($data->event->event_meta)){
+		foreach($data->event->event_meta as $k=>$v){
+			array_push($SearchValues,"[".$k."]");
+			array_push($ReplaceValues,stripslashes_deep($v));
+		}
+	}
+
     return str_replace($SearchValues, $ReplaceValues, $content);
 }
 
+//Creates the dropdown for use in the event editor
 if ( !function_exists( 'espresso_ticket_dd' ) ){
 	function espresso_ticket_dd($current_value = 0){
 		global $espresso_premium; if ($espresso_premium != true) return;
