@@ -79,6 +79,7 @@ function edit_event_ticket(){
 		  <input id="upload_image_button" type="button" value="Upload Image" />
 		  <?php if($ticket_logo){ ?>
 		  <p class="ticket-logo-thumb"><img src="<?php echo $ticket_logo ?>" alt="" /></p>
+          <a id='remove-image' href='#' title='<?php _e('Remove this image', 'event_espresso'); ?>' onclick='return false;'><?php _e('Remove Image', 'event_espresso'); ?></a>
 		  <?php } ?>
 		</div></li>
           <li>
@@ -132,13 +133,24 @@ function edit_event_ticket(){
 			if(header_clicked) {
 				imgurl = jQuery('img',html).attr('src');
 				jQuery('#' + formfield).val(imgurl);
-				jQuery('#ticket-logo-image').append("<p><img src='"+imgurl+"' alt='' /></p>");
+				jQuery('#ticket-logo-image').append("<p id='image-display'><img class='show-selected-img' src='"+imgurl+"' alt='' /></p>");
 				header_clicked = false;
 				tb_remove();
 				} else {
 					window.original_send_to_editor(html);
 				}
 		}
+		
+		// process the remove link in the metabox
+				jQuery('#remove-image').click(function(){
+				confirm('Do you really want to delete this image? Please remember to update your ticket to complete the removal');
+				jQuery("#upload_image").val('');
+				jQuery("p.ticket-logo-thumb").remove();
+				jQuery("p#image-display").remove();
+				jQuery('#remove-image').remove();
+				//jQuery("#show_thumb_in_lists, #show_on_calendar, #show_thumb_in_regpage").val('N');
+				});
+				
 	});
 
 	//]]>

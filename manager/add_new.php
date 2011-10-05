@@ -64,6 +64,7 @@ function add_new_event_ticket(){
 		  <input id="upload_image_button" type="button" value="Upload Image" />
 		  <?php if($ticket_logo){ ?>
 		  <p class="ticket-logo"><img src="<?php echo $ticket_logo ?>" alt="" /></p>
+          <a id='remove-image' href='#' title='<?php _e('Remove this image', 'event_espresso'); ?>' onclick='return false;'><?php _e('Remove Image', 'event_espresso'); ?></a>
 		  <?php } ?>
 		</div></li>
 			<li>
@@ -119,9 +120,16 @@ function add_new_event_ticket(){
 			if(header_clicked) {
 				imgurl = jQuery('img',html).attr('src');
 				jQuery('#' + formfield).val(imgurl);
-				jQuery('#ticket-logo-image').append("<p><img src='"+imgurl+"' alt='' /></p>");
+				jQuery('#ticket-logo-image').append("<p id='image-display'><img class='show-selected-img' src='"+imgurl+"' alt='' /></p>");
 				header_clicked = false;
 				tb_remove();
+				jQuery("#ticket-logo-image").append("<a id='remove-image' href='#' title='<?php _e('Remove this image', 'event_espresso'); ?>' onclick='return false;'><?php _e('Remove Image', 'event_espresso'); ?></a>");
+				jQuery('#remove-image').click(function(){
+				//alert('delete this image');
+				jQuery('#' + formfield).val('');
+				jQuery("#image-display").empty();
+				jQuery('#remove-image').remove();			
+				});
 				} else {
 					window.original_send_to_editor(html);
 				}
