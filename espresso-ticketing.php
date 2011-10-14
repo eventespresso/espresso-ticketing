@@ -96,7 +96,8 @@ if (isset($_REQUEST['ticket_launch'])&&$_REQUEST['ticket_launch'] == 'true') {
 	//echo espresso_ticket_launch($_REQUEST['id'], $_REQUEST['registration_id']);
 }
 
-wp_enqueue_style('espresso_ticketing_menu', ESPRESSO_TICKETING_FULL_URL . 'css/admin-menu-styles.css');
+if (is_admin())
+	wp_enqueue_style('espresso_ticketing_menu', ESPRESSO_TICKETING_FULL_URL . 'css/admin-menu-styles.css');
 
 if (isset($_REQUEST['page']) && $_REQUEST['page']=='event_tickets') {
 	wp_enqueue_style('espresso_ticketing', ESPRESSO_TICKETING_FULL_URL . 'css/admin-styles.css');
