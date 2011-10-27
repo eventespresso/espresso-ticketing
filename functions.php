@@ -26,6 +26,34 @@ function espresso_ticket_content($id) {
     return $ticket_data;
 }
 
+//Retunrs an array of available template files
+function espresso_ticket_template_files() {
+	// read our template dir and build an array of files
+	if (file_exists(EVENT_ESPRESSO_TEMPLATE_DIR . "tickets/templates/index.html")) {
+		$dhandle = opendir(EVENT_ESPRESSO_TEMPLATE_DIR . 'tickets/templates/');//If the template files have been moved to the uplaods folder
+	} else {
+		$dhandle = opendir(ESPRESSO_TICKETING_FULL_PATH . 'templates/');
+	}
+	
+	$files = array();
+	
+	if ($dhandle) { //if we managed to open the directory
+		// loop through all of the files
+		while (false !== ($fname = readdir($dhandle))) {
+			// if the file is not this file, and does not start with a '.' or '..',
+			// then store it for later display
+			if ( ($fname != '.') && ($fname != 'index.html') && ($fname != '..') && ($fname != '.svn') && ($fname != basename($_SERVER['PHP_SELF'])) ) {
+				// store the filename
+				$files[] = $fname;
+			}
+		}
+		// close the directory
+		closedir($dhandle);
+	}
+	
+	return $files;
+}
+
 //Creates the ticket pdf
 function espresso_ticket_launch($attendee_id=0, $registration_id=0){
 	global $wpdb, $org_options, $ticket_options;

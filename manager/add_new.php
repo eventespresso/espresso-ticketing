@@ -1,28 +1,7 @@
 <?php
 function add_new_event_ticket(){
 	
-	// read our template dir and build an array of files
-	if (file_exists(EVENT_ESPRESSO_TEMPLATE_DIR . "tickets/templates/index.html")) {
-		$dhandle = opendir(EVENT_ESPRESSO_TEMPLATE_DIR . 'tickets/templates/');//If the template files have been moved to the uplaods folder
-	} else {
-		$dhandle = opendir(ESPRESSO_TICKETING_FULL_PATH . 'templates/');
-	}
-	
-	$files = array();
-	
-	if ($dhandle) { //if we managed to open the directory
-		// loop through all of the files
-		while (false !== ($fname = readdir($dhandle))) {
-			// if the file is not this file, and does not start with a '.' or '..',
-			// then store it for later display
-			if ( ($fname != '.') && ($fname != '..') && ($fname != '.svn') && ($fname != basename($_SERVER['PHP_SELF'])) ) {
-				// store the filename
-				$files[] = $fname;
-			}
-		}
-		// close the directory
-		closedir($dhandle);
-	}
+	$files = espresso_ticket_template_files();
 	?>
 <!--Add event display-->
 <div class="metabox-holder">
