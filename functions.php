@@ -13,7 +13,7 @@ function espresso_ticket_is_selected($name, $selected='') {
 	   else
 	   echo  'selected="selected"';
 	   return; 
-	}
+}
 function espresso_ticket_content($id) {
     global $wpdb;
     $results = $wpdb->get_results("SELECT * FROM " . ESPRESSO_TICKETING_TABLE . " WHERE id =" . $id);
@@ -42,7 +42,7 @@ function espresso_ticket_template_files() {
 		while (false !== ($fname = readdir($dhandle))) {
 			// if the file is not this file, and does not start with a '.' or '..',
 			// then store it for later display
-			if ( ($fname != '.') && ($fname != 'index.html') && ($fname != '..') && ($fname != '.svn') && ($fname != basename($_SERVER['PHP_SELF'])) ) {
+			if ( ($fname != '.') && ($fname != 'index.html') && ($fname != '..') && ($fname != '.svn') && ($fname != basename($_SERVER['PHP_SELF'])) && ($fname != '.DS_Store') ) {
 				// store the filename
 				$files[] = $fname;
 			}
