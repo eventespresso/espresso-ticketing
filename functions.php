@@ -16,7 +16,7 @@ function espresso_ticket_is_selected($name, $selected='') {
 }
 function espresso_ticket_content($id) {
     global $wpdb;
-    $results = $wpdb->get_results("SELECT * FROM " . ESPRESSO_TICKETING_TABLE . " WHERE id =" . $id);
+    $results = $wpdb->get_results("SELECT * FROM " . EVENTS_TICKET_TEMPLATES . " WHERE id =" . $id);
     foreach ($results as $result) {
         $ticket_id = $result->id;
         $ticket_name = stripslashes_deep($result->ticket_name);
