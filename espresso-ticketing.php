@@ -72,20 +72,6 @@ if ( !function_exists( 'espresso_ticketing_install' ) ){
 		
 		event_espresso_run_install($table_name, $table_version, $sql);
 		
-		$ticket_options = array(
-			'use_gravatar' => 'N',
-			'use_name_badge' => 'N',
-			'image_file' => 'ticket-bg.jpg',
-			'background_color' => '000000',
-			'enable_personal_qr_code' => 'Y',
-			'show_venue' => 'Y',
-			'show_map' => 'Y',
-			'show_price' => 'Y',
-			'show_espresso_footer' => 'Y'
-		);
-
-		add_option('espresso_ticket_settings', $ticket_options);
-		
 	}
 	
 }

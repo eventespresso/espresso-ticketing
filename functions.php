@@ -56,7 +56,7 @@ function espresso_ticket_template_files() {
 
 //Creates the ticket pdf
 function espresso_ticket_launch($attendee_id=0, $registration_id=0){
-	global $wpdb, $org_options, $ticket_options;
+	global $wpdb, $org_options;
 	$data = new stdClass;
 	
 	//Make sure we have attendee data
