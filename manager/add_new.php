@@ -19,6 +19,7 @@ function add_new_event_ticket(){
               <?php _e('Ticket Name','event_espresso'); ?>
             </label>
             <input type="text" name="ticket_name" size="25" />
+							<a class="thickbox"  href="#TB_inline?height=400&amp;width=500&amp;inlineId=ticket-guide" target="_blank"><img src="<?php echo EVENT_ESPRESSO_PLUGINFULLURL ?>images/question-frame.png" width="16" height="16" alt="" /></a>
           </li>
           <li>
             <label for="base-ticket-select" <?php echo $styled ?>>

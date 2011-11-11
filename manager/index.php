@@ -118,7 +118,7 @@ function espresso_ticket_config_mnu() {
             </div>
         </div>
     </div>
-
+<?php include_once('tickets_help.php'); ?>
     <script>
         jQuery(document).ready(function($) {
 
