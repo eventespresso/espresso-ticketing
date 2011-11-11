@@ -12,7 +12,7 @@ function espresso_ticket_is_selected($name, $selected='') {
 	   return false;
 	   else
 	   echo  'selected="selected"';
-	   return; 
+	   return;
 }
 function espresso_ticket_content($id) {
     global $wpdb;
@@ -34,9 +34,9 @@ function espresso_ticket_template_files() {
 	} else {
 		$dhandle = opendir(ESPRESSO_TICKETING_FULL_PATH . 'templates/');
 	}
-	
+
 	$files = array();
-	
+
 	if ($dhandle) { //if we managed to open the directory
 		// loop through all of the files
 		while (false !== ($fname = readdir($dhandle))) {
@@ -50,7 +50,7 @@ function espresso_ticket_template_files() {
 		// close the directory
 		closedir($dhandle);
 	}
-	
+
 	return $files;
 }
 
@@ -58,11 +58,11 @@ function espresso_ticket_template_files() {
 function espresso_ticket_launch($attendee_id=0, $registration_id=0){
 	global $wpdb, $org_options;
 	$data = new stdClass;
-	
+
 	//Make sure we have attendee data
 	if ($attendee_id==0 || $registration_id==0)
 		return;
-	
+
 	//Get the event record
     $sql = "SELECT ed.*, et.ticket_file, et.ticket_content, et.ticket_logo_url ";
     isset($org_options['use_venue_manager']) && $org_options['use_venue_manager'] == 'Y' ? $sql .= ", v.id venue_id, v.name venue_name, v.address venue_address, v.city venue_city, v.state venue_state, v.zip venue_zip, v.country venue_country, v.meta venue_meta " : '';
@@ -73,24 +73,24 @@ function espresso_ticket_launch($attendee_id=0, $registration_id=0){
     $sql .= " WHERE ea.id = '" . $attendee_id . "' AND ea.registration_id = '" . $registration_id . "' ";
 	//echo $sql;
     $data->event = $wpdb->get_row($sql, OBJECT);
-	
+
 	//Get the attendee record
     $sql = "SELECT ea.* FROM " . EVENTS_ATTENDEE_TABLE . " ea WHERE ea.id = '" . $attendee_id . "' ";
     $data->attendee = $wpdb->get_row($sql, OBJECT);
-	
+
 	//Get the primary/first attendee
 	$data->primary_attendee = espresso_is_primary_attendee($data->attendee->id) == true ? true : false;
-	
+
 	//unserialize the event meta
 	$data->event->event_meta = unserialize($data->event->event_meta);
-	
+
 	//Get the registration date
 	$data->attendee->registration_date = $data->attendee->date;
-	
+
 	//Get the HTML file
 	$data->event->ticket_file = (!empty($data->event->ticket_file) && $data->event->ticket_file > '0') ? $data->event->ticket_file : 'basic.html';
 	//echo $data->event->ticket_file;
-	
+
 	//Venue information
     if (isset($org_options['use_venue_manager']) && $org_options['use_venue_manager'] == 'Y') {
 		$data->event->venue_id = !empty($data->event->venue_id)?$data->event->venue_id:'';
@@ -105,40 +105,40 @@ function espresso_ticket_launch($attendee_id=0, $registration_id=0){
     } else {
         $data->event->venue_name = !empty($data->event->venue_title)?$data->event->venue_title:'';
     }
-	
+
 	//Create the Gravatar image
 	$data->gravatar = espresso_get_gravatar($data->attendee->email, $size = '100', $default = 'http://www.gravatar.com/avatar/' );
-	
+
 	//Google map IMAGE creation
 	$data->event->google_map_image = espresso_google_map_link(array('id' => $data->event->venue_id, 'address' => $data->event->address, 'city' => $data->event->city, 'state' => $data->event->state, 'zip' => $data->event->zip, 'country' => $data->event->country, 'type'=>'map'));
-	
+
 	//Google map LINK creation
 	$data->event->google_map_link = espresso_google_map_link(array('address' => $data->event->address, 'city' => $data->event->city, 'state' => $data->event->state, 'zip' => $data->event->zip, 'country' => $data->event->country, 'type'=>'text'));
-	
+
 	//Create the logo
 	$data->event->ticket_logo_url = empty($data->event->ticket_logo_url) ? $org_options['default_logo_url']: $data->event->ticket_logo_url;
 	$image_size = getimagesize($data->event->ticket_logo_url);
 	$data->event->ticket_logo_image = '<img src="'.$data->event->ticket_logo_url.'" '.$image_size[3].' alt="logo" /> ';
-	
+
 	//Create the QR Code image
 	$data->qr_code = espresso_ticket_qr_code( array(
-		'attendee_id' => $data->attendee->id, 
-		'event_name' => stripslashes_deep($data->event->event_name), 
-		'attendee_first' => $data->attendee->fname, 
-		'attendee_last' => $data->attendee->lname, 
-		'registration_id' => $data->attendee->registration_id, 
-		'event_code' => $data->event->event_code, 
-		'ticket_type' => $data->attendee->price_option, 
-		'event_time' => $data->attendee->event_time, 
+		'attendee_id' => $data->attendee->id,
+		'event_name' => stripslashes_deep($data->event->event_name),
+		'attendee_first' => $data->attendee->fname,
+		'attendee_last' => $data->attendee->lname,
+		'registration_id' => $data->attendee->registration_id,
+		'event_code' => $data->event->event_code,
+		'ticket_type' => $data->attendee->price_option,
+		'event_time' => $data->attendee->event_time,
 		'amount_pd' => espresso_attendee_price(array(
-			'registration_id' => $data->attendee->registration_id, 
+			'registration_id' => $data->attendee->registration_id,
 			'reg_total' => true
 		)),
 	));
-	
+
 	//Build the ticket name
 	$ticket_name = sanitize_title_with_dashes($data->attendee->id.' '.$data->attendee->fname.' '.$data->attendee->lname);
-	
+
 	//Get the HTML as an object
     ob_start();
 	if (file_exists(EVENT_ESPRESSO_TEMPLATE_DIR . "tickets/templates/index.html")) {
@@ -148,13 +148,13 @@ function espresso_ticket_launch($attendee_id=0, $registration_id=0){
 	}
 	$content = ob_get_clean();
 	$content = espresso_replace_ticket_shortcodes($content, $data);
-	
+
 	//Check if debugging or mobile is set
 	if ( (isset($_REQUEST['debug']) && $_REQUEST['debug']==true) || stripos($_SERVER['HTTP_USER_AGENT'], 'mobile') !== false ){
-		echo $content; 
+		echo $content;
 		exit(0);
 	}
-	
+
 	//Create the PDF
 	define('DOMPDF_ENABLE_REMOTE',true);
 	require_once(EVENT_ESPRESSO_PLUGINFULLPATH . '/class/dompdf/dompdf_config.inc.php');
@@ -164,7 +164,7 @@ function espresso_ticket_launch($attendee_id=0, $registration_id=0){
 	$dompdf->render();
 	$dompdf->stream($ticket_name.".pdf", array("Attachment" => false));
 	exit(0);
-	
+
 }
 
 //Performst the shortcode replacement
@@ -185,11 +185,11 @@ function espresso_replace_ticket_shortcodes($content, $data) {
         "[description]",
         "[event_link]",
         "[event_url]",
-        
+
         //Payment details
         "[cost]",
         "[ticket_type]",
-        
+
 		//Organization details
         "[company]",
         "[co_add1]",
@@ -203,14 +203,14 @@ function espresso_replace_ticket_shortcodes($content, $data) {
         "[start_time]",
         "[end_date]",
         "[end_time]",
-		
+
 		//Ticket data
 		"[ticket_content]",
-		
+
 		//Logo
 		"[ticket_logo_url]",
 		"[ticket_logo_image]",
-		
+
 		//Venue information
 		"[venue_title]",
 		"[venue_address]",
@@ -221,10 +221,10 @@ function espresso_replace_ticket_shortcodes($content, $data) {
 		"[venue_country]",
 		"[venue_phone]",
 		"[venue_description]",
-		
+
         "[venue_website]",
         "[venue_image]",
-        
+
 		"[google_map_image]",
         "[google_map_link]",
     );
@@ -244,11 +244,11 @@ function espresso_replace_ticket_shortcodes($content, $data) {
         stripslashes_deep($data->event->event_desc),
        	$data->event_link,
         $data->event_url,
-        
+
 		//Payment details
         $org_options['currency_symbol'] .' '. espresso_attendee_price(array('registration_id' => $data->attendee->registration_id, 'session_total' => true)),
         $data->attendee->price_option,
-        
+
 		//Organization details
         stripslashes_deep($org_options['organization']),
         $org_options['organization_street1'],
@@ -256,22 +256,22 @@ function espresso_replace_ticket_shortcodes($content, $data) {
         $org_options['organization_city'],
         $org_options['organization_state'],
         $org_options['organization_zip'],
-        
+
 		//Dates
         event_date_display($data->attendee->start_date),
         event_date_display($data->attendee->event_time, get_option('time_format')),
         event_date_display($data->attendee->end_date),
         event_date_display($data->attendee->end_time, get_option('time_format')),
-		
+
 		//Ticket data
 		wpautop(stripslashes_deep(html_entity_decode($data->event->ticket_content, ENT_QUOTES))),
-		
+
 		//Logo
 		$data->event->ticket_logo_url,
 		$data->event->ticket_logo_image, //Returns the logo wrapped in an image tag
-		
+
 		//Venue information
-		$data->event->venue_name,		
+		$data->event->venue_name,
 		$data->event->address,
 		$data->event->address2,
 		$data->event->city,
@@ -280,14 +280,14 @@ function espresso_replace_ticket_shortcodes($content, $data) {
 		$data->event->country,
 		$data->event->venue_meta['phone'],
 		wpautop(stripslashes_deep(html_entity_decode($data->event->venue_meta['description'], ENT_QUOTES))),
-		
+
 		$data->event->venue_meta['website'],
-        $data->event->venue_meta['image'],        
-		
+        $data->event->venue_meta['image'],
+
 		$data->event->google_map_image,
         $data->event->google_map_link,
     );
-	
+
 	//Get the questions and answers
 	$questions = $wpdb->get_results("select qst.question as question, ans.answer as answer from ".EVENTS_ANSWER_TABLE." ans inner join ".EVENTS_QUESTION_TABLE." qst on ans.question_id = qst.id where ans.attendee_id = ".$data->attendee->id, ARRAY_A);
 	//echo '<p>'.print_r($questions).'</p>';
@@ -295,17 +295,17 @@ function espresso_replace_ticket_shortcodes($content, $data) {
 		foreach($questions as $q){
 			$k = $q['question'];
 			$v = $q['answer'];
-			
+
 			//Output the question
 			array_push($SearchValues,"[".'question_'.$k."]");
 			array_push($ReplaceValues,$k);
-			
+
 			//Output the answer
 			array_push($SearchValues,"[".'answer_'.$k."]");
 			array_push($ReplaceValues,$v);
 		}
 	}
-	
+
 	//Get the event meta
 	//echo '<p>'.print_r($data->event->event_meta).'</p>';
 	if (!empty($data->event->event_meta)){
@@ -337,8 +337,8 @@ if ( !function_exists( 'espresso_ticket_dd' ) ){
 				$selected = $ticket->id == $current_value ? 'selected="selected"' : '';
 				$field .= '<option '. $selected .' value="' . $ticket->id .'">' . $ticket->ticket_name. '</option>\n';
 			}
-			$field .= "</select>";
-			$html = '<p>' .__('Custom Ticket:','event_espresso') . $field .'</p>';
+			$field .= '</select>';
+			$html = '<p>' .__('Custom Ticket:','event_espresso') . $field .' <a class="thickbox"  href="#TB_inline?height=400&width=500&inlineId=custom_ticket_info" target="_blank"><img src="' . EVENT_ESPRESSO_PLUGINFULLURL . 'images/question-frame.png" width="16" height="16" /></a></p>';
 			return $html;
 		}
 	}
