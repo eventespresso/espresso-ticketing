@@ -29,8 +29,8 @@ function espresso_ticket_content($id) {
 //Retunrs an array of available template files
 function espresso_ticket_template_files() {
 	// read our template dir and build an array of files
-	if (file_exists(EVENT_ESPRESSO_TEMPLATE_DIR . "tickets/templates/index.html")) {
-		$dhandle = opendir(EVENT_ESPRESSO_TEMPLATE_DIR . 'tickets/templates/');//If the template files have been moved to the uplaods folder
+	if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/index.php")) {
+		$dhandle = opendir(EVENT_ESPRESSO_UPLOAD_DIR . 'tickets/');//If the template files have been moved to the uplaods folder
 	} else {
 		$dhandle = opendir(ESPRESSO_TICKETING_FULL_PATH . 'templates/');
 	}
@@ -141,8 +141,8 @@ function espresso_ticket_launch($attendee_id=0, $registration_id=0){
 
 	//Get the HTML as an object
     ob_start();
-	if (file_exists(EVENT_ESPRESSO_TEMPLATE_DIR . "tickets/templates/index.html")) {
-		require_once(EVENT_ESPRESSO_TEMPLATE_DIR . 'tickets/templates/'.$data->event->ticket_file);
+	if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/index.php")) {
+		require_once(EVENT_ESPRESSO_UPLOAD_DIR . 'tickets/'.$data->event->ticket_file);
 	} else {
 		require_once('templates/'.$data->event->ticket_file);
 	}
