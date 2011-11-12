@@ -72,6 +72,11 @@
 			<p>
 				<?php _e('Use this editor to add any information about the venue or instructions for the ticket holder.  On the default template, this will appear under the ticket.', 'event_espresso'); ?>
 			</p>
+			<p> <em class="important"> <strong>
+				<?php _e('ATTENTION:', 'event_espresso'); ?>
+				</strong><br />
+				<?php _e('The custom shortcodes will not work here. Please edit the HTML files.', 'event_espresso'); ?>
+				</em> </p>
 		</div>
 	</div>
 	<?php
