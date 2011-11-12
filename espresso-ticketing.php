@@ -32,7 +32,7 @@ define( "ESPRESSO_TICKETING_PATH", "/" . plugin_basename( dirname( __FILE__ ) ) 
 define( "ESPRESSO_TICKETING_FULL_PATH", WP_PLUGIN_DIR . ESPRESSO_TICKETING_PATH );
 define( "ESPRESSO_TICKETING_FULL_URL", WP_PLUGIN_URL . ESPRESSO_TICKETING_PATH );
 define( "ESPRESSO_TICKETING_ACTIVE", TRUE );
-define("EVENTS_TICKET_TEMPLATES", $wpdb->prefix . "events_ticket_templates");
+define( "EVENTS_TICKET_TEMPLATES", $wpdb->prefix . "events_ticket_templates" );
 //echo $espresso_path;
 require_once('functions.php');
 require_once('manager/index.php');
