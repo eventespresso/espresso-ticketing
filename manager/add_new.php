@@ -49,7 +49,7 @@ function add_new_event_ticket(){
                 <?php _e('Add a Logo', 'event_espresso'); ?>
               </label>
               <input id="upload_image" type="hidden" size="36" name="upload_image" value="<?php echo $ticket_logo ?>" />
-              <input id="upload_image_button" type="button" value="Upload Image" />
+              <input id="upload_image_button" type="button" value="Upload Image" /> <a class="thickbox"  href="#TB_inline?height=400&amp;width=500&amp;inlineId=ticket_logo_info" target="_blank"><img src="<?php echo EVENT_ESPRESSO_PLUGINFULLURL ?>images/question-frame.png" width="16" height="16" alt="" /></a>
               <?php if($ticket_logo){ ?>
               <p class="ticket-logo"><img src="<?php echo $ticket_logo ?>" alt="" /></p>
               <a id='remove-image' href='#' title='<?php _e('Remove this image', 'event_espresso'); ?>' onclick='return false;'>
@@ -61,7 +61,7 @@ function add_new_event_ticket(){
           <li>
             <div id="descriptiondivrich" class="postarea">
               <label for="ticket_content">
-                <?php _e('Ticket Description/Instructions','event_espresso'); ?>
+                <?php _e('Ticket Description/Instructions','event_espresso'); ?> <a class="thickbox"  href="#TB_inline?height=400&amp;width=500&amp;inlineId=ticket_description_info" target="_blank"><img src="<?php echo EVENT_ESPRESSO_PLUGINFULLURL ?>images/question-frame.png" width="16" height="16" alt="" /></a>
               </label>
               <div class="postbox">
                 <?php the_editor('', $id = 'ticket_content', $prev_id = 'title', $media_buttons = true, $tab_index = 3);?>
