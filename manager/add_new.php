@@ -1,6 +1,6 @@
 <?php
 function add_new_event_ticket(){
-	
+
 	$files = espresso_ticket_template_files();
 	?>
 <!--Add event display-->
@@ -32,13 +32,13 @@ function add_new_event_ticket(){
               <?php foreach( $files as $fname ) { ?>
               <option <?php espresso_ticket_is_selected($fname) ?> value="<?php echo $fname ?>"><?php echo $fname; ?></option>
               <?php } ?>
-            </select>
+            </select> <a class="thickbox"  href="#TB_inline?height=400&amp;width=500&amp;inlineId=base_template_info" target="_blank"><img src="<?php echo EVENT_ESPRESSO_PLUGINFULLURL ?>images/question-frame.png" width="16" height="16" alt="" /></a>
           </li>
           <li>
             <div id="ticket-logo-image">
               <?php
-									 
-		if(!empty($ticket_logo_url)){ 
+
+		if(!empty($ticket_logo_url)){
 			$ticket_logo = $ticket_logo_url;
 		} else {
 			$ticket_logo = '';
@@ -92,8 +92,8 @@ function add_new_event_ticket(){
 </div>
 <script type="text/javascript" charset="utf-8">
 	//<![CDATA[
- 	jQuery(document).ready(function() {    
-			var header_clicked = false; 
+ 	jQuery(document).ready(function() {
+			var header_clicked = false;
 			jQuery('#upload_image_button').click(function() {
 	     formfield = jQuery('#upload_image').attr('name');
 	     tb_show('', 'media-upload.php?type=image&amp;TB_iframe=1');
@@ -101,7 +101,7 @@ function add_new_event_ticket(){
 	    return false;
 	   });
 		window.original_send_to_editor = window.send_to_editor;
-					 
+
 		window.send_to_editor = function(html) {
 			if(header_clicked) {
 				imgurl = jQuery('img',html).attr('src');
@@ -114,7 +114,7 @@ function add_new_event_ticket(){
 				//alert('delete this image');
 				jQuery('#' + formfield).val('');
 				jQuery("#image-display").empty();
-				jQuery('#remove-image').remove();			
+				jQuery('#remove-image').remove();
 				});
 				} else {
 					window.original_send_to_editor(html);
@@ -124,6 +124,6 @@ function add_new_event_ticket(){
 
 	//]]>
 </script>
-<?php 
+<?php
 //espresso_tiny_mce();
-} 
+}

@@ -25,6 +25,18 @@
     </div>
   </div>
 
+  <?php
+  	/**
+  	 * Base Ticket Template Help Box
+  	 */
+  ?>
+  <div id="base_template_info" class="pop-help" >
+    <div class="TB-ee-frame">
+     <h2><?php _e('Base Ticket Template', 'event_espresso'); ?></h2>
+        <p><?php _e('If you want to use customized ticket templates, templates must be uploaded to <tt>/wp-content/uploads/espresso/templates/tickets/templates/</tt>.', 'event_espresso'); ?></p>
+    </div>
+  </div>
+
 	<?php
     	/**
     	 * Ticket Guide
