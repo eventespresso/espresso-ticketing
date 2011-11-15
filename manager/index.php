@@ -56,6 +56,7 @@ function espresso_ticket_config_mnu() {
                                 break;
                         }
                     }
+					do_action('espresso_admin_notices'); 
                     ?>
 
                     <p><?php _e('Create customized ticket template for use in multiple events.', 'event_espresso'); ?> <a class="thickbox" href="#TB_inline?height=300&width=400&inlineId=customized_ticket_info"><img src="<?php echo EVENT_ESPRESSO_PLUGINFULLURL; ?>/images/question-frame.png" width="16" height="16" /></a></p></p>
@@ -77,9 +78,9 @@ function espresso_ticket_config_mnu() {
                                 $sql = "SELECT * FROM " . EVENTS_TICKET_TEMPLATES . " e";
                                
 								if ( function_exists('espresso_manager_pro_version') && $_SESSION['espresso_use_selected_manager'] == true){
-									$sql .= " WHERE wp_user = '" . $espresso_wp_user . "' ";
+									$sql .= " JOIN $wpdb->users u on u.ID = e.wp_user WHERE e.wp_user = " . $espresso_wp_user;
 								}elseif (function_exists('espresso_member_data') && ( espresso_member_data('role') == 'espresso_event_manager' || espresso_member_data('role') == 'espresso_group_admin')) {
-									$sql .= " WHERE wp_user = '" . espresso_member_data('id') . "' ";
+									$sql .= " JOIN $wpdb->users u on u.ID = e.wp_user WHERE e.wp_user = " . espresso_member_data('id');
 								}
 								
                                 $wpdb->query($sql);
