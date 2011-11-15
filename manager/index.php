@@ -1,10 +1,8 @@
 <?php
 
 function espresso_ticket_config_mnu() {
-    global $wpdb, $current_user, $espresso_premium;
-    ?>
-
-
+    global $wpdb, $espresso_wp_user, $espresso_premium;
+?>
     <div class="wrap">
         <div id="icon-options-event" class="icon32"> </div>
         <h2><?php echo _e('Manage Ticket Templates', 'event_espresso') ?>
@@ -77,9 +75,13 @@ function espresso_ticket_config_mnu() {
                             <tbody>
                                 <?php
                                 $sql = "SELECT * FROM " . EVENTS_TICKET_TEMPLATES . " e";
-                                if (function_exists('espresso_member_data') && ( espresso_member_data('role') == 'espresso_event_manager' || espresso_member_data('role') == 'espresso_group_admin')) {
-                                    $sql .= " JOIN $wpdb->users u on u.ID = e.wp_user WHERE e.wp_user = " . $current_user->ID;
-                                }
+                               
+								if ( function_exists('espresso_manager_pro_version') && $_SESSION['espresso_use_selected_manager'] == true){
+									$sql .= " WHERE wp_user = '" . $espresso_wp_user . "' ";
+								}elseif (function_exists('espresso_member_data') && ( espresso_member_data('role') == 'espresso_event_manager' || espresso_member_data('role') == 'espresso_group_admin')) {
+									$sql .= " WHERE wp_user = '" . espresso_member_data('id') . "' ";
+								}
+								
                                 $wpdb->query($sql);
                                 if ($wpdb->num_rows > 0) {
                                     $results = $wpdb->get_results($sql . " ORDER BY e.id ASC");

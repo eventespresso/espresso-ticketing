@@ -41,8 +41,7 @@ function edit_event_ticket(){
 							<option <?php espresso_ticket_is_selected($fname,$ticket_file) ?> value="<?php echo $fname ?>"><?php echo $fname; ?></option>
 							<?php } ?>
 						</select>
-						<a class="thickbox"  href="#TB_inline?height=400&amp;width=500&amp;inlineId=base_template_info" target="_blank"><img src="<?php echo EVENT_ESPRESSO_PLUGINFULLURL ?>images/question-frame.png" width="16" height="16" alt="" /></a>
-					</li>
+						<a class="thickbox"  href="#TB_inline?height=400&amp;width=500&amp;inlineId=base_template_info" target="_blank"><img src="<?php echo EVENT_ESPRESSO_PLUGINFULLURL ?>images/question-frame.png" width="16" height="16" alt="" /></a> </li>
 					<li>
 						<div id="ticket-logo-image">
 							<?php
@@ -72,8 +71,7 @@ function edit_event_ticket(){
 						<div id="descriptiondivrich" class="postarea">
 							<label for="ticket_content">
 								<?php _e('Ticket Description/Instructions','event_espresso'); ?>
-								<a class="thickbox"  href="#TB_inline?height=400&amp;width=500&amp;inlineId=ticket_description_info" target="_blank"><img src="<?php echo EVENT_ESPRESSO_PLUGINFULLURL ?>images/question-frame.png" width="16" height="16" alt="" /></a>
-							</label>
+								<a class="thickbox"  href="#TB_inline?height=400&amp;width=500&amp;inlineId=ticket_description_info" target="_blank"><img src="<?php echo EVENT_ESPRESSO_PLUGINFULLURL ?>images/question-frame.png" width="16" height="16" alt="" /></a> </label>
 							<div class="postbox">
 								<?php the_editor(stripslashes_deep($ticket_content), $id = 'ticket_content', $prev_id = 'title', $media_buttons = true, $tab_index = 3);?>
 								<table id="manage-event-ticket-form" cellspacing="0">
@@ -143,4 +141,3 @@ function edit_event_ticket(){
 <?php 
  //espresso_tiny_mce();
 }
-
