@@ -1,7 +1,7 @@
 <?php
 function add_ticket_to_db(){
 	global $wpdb, $espresso_wp_user, $notices;
-	if ( $_REQUEST['action'] == 'add' ){
+	if ( $_REQUEST['action'] == 'add' && check_admin_referer('espresso_form_check', 'add_new_ticket')){
 		$ticket_name= $_REQUEST['ticket_name'];
 		$ticket_file= $_REQUEST['ticket_file'];
 		$ticket_logo_url= $_REQUEST['upload_image'];
