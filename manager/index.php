@@ -64,7 +64,7 @@ function espresso_ticket_config_mnu() {
 								if ( did_action( 'espresso_admin_notices' ) == false )
 								do_action('espresso_admin_notices');
 								?>
-                    <p><?php _e('Create customized ticket template for use in multiple events.', 'event_espresso'); ?> <a class="thickbox" href="#TB_inline?height=300&width=400&inlineId=customized_ticket_info"><img src="<?php echo EVENT_ESPRESSO_PLUGINFULLURL; ?>/images/question-frame.png" width="16" height="16" /></a></p></p>
+                    <p><?php _e('Create customized ticket template for use in multiple events. ', 'event_espresso'); ?> <?php apply_filters('espresso_help', 'customized_ticket_info') ?></p>
                     <form id="form1" name="form1" method="post" action="<?php echo $_SERVER["REQUEST_URI"] ?>">
                         <table id="table" class="widefat manage-tickets">
                             <thead>
