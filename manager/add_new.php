@@ -74,8 +74,8 @@ function add_new_event_ticket(){
 
 						<div id="descriptiondivrich" class="postarea">
 							<label for="ticket_content">
-							<?php _e('Ticket Description/Instructions','event_espresso'); ?>
-							<a class="thickbox"  href="#TB_inline?height=400&amp;width=500&amp;inlineId=ticket_description_info" target="_blank"><img src="<?php echo EVENT_ESPRESSO_PLUGINFULLURL ?>images/question-frame.png" width="16" height="16" alt="" /></a> </label>
+								<?php _e('Ticket Description/Instructions ','event_espresso'); ?><?php apply_filters('espresso_help', 'ticket_description_info') ?>
+							</label>
 							<div class="postbox">
 								<?php the_editor('', $id = 'ticket_content', $prev_id = 'title', $media_buttons = true, $tab_index = 3);?>
 									<table id="manage-event-ticket-form" cellspacing="0">
