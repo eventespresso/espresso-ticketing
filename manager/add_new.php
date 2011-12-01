@@ -18,7 +18,7 @@ function add_new_event_ticket(){
 								<tr>
 									<th> 
 										<label for="ticket_name">
-											<?php _e('Ticket Name ','event_espresso'); ?><?php apply_filters('espresso_help', 'ticket-guide'); ?>
+											<?php _e('Ticket Name','event_espresso'); ?><?php apply_filters('espresso_help', 'ticket-guide'); ?>
 										</label>
 									</th>
 									<td><input type="text" name="ticket_name" size="25" /></td>
@@ -26,13 +26,13 @@ function add_new_event_ticket(){
 								<tr>
 									<th>
 										<label for="base-ticket-select" <?php echo $styled ?>> 
-											<?php _e('Select Base Template', 'event_espresso');  ?>
+											<?php _e('Select Stylesheet', 'event_espresso');  ?>
 										</label>
 									</th>
 									<td>
 										<select id="base-ticket-select" class="wide" <?php echo $disabled ?> name="ticket_file">
-										<option <?php espresso_ticket_is_selected($fname) ?> value="basic.html">
-										<?php _e('Default Template - Basic', 'event_espresso'); ?>
+										<option <?php espresso_ticket_is_selected($fname) ?> value="simple.css">
+										<?php _e('Default CSS - Simple', 'event_espresso'); ?>
 										</option>
 										<?php foreach( $files as $fname ) { ?>
 										<option <?php espresso_ticket_is_selected($fname) ?> value="<?php echo $fname ?>"><?php echo $fname; ?></option>

@@ -16,19 +16,20 @@ function edit_event_ticket(){
 <div class="metabox-holder">
 		<div class="postbox">
 			<h3>
-				<?php _e('Edit Ticket Template:','event_espresso'); ?>
-				<?php echo stripslashes($ticket_name) ?>
+				<?php _e('Edit Ticket','event_espresso'); ?>
 			</h3>
 			<div class="inside">
+			
 				<form id="add-edit-new-event-ticket" method="post" action="<?php echo $_SERVER['REQUEST_URI'];?>">
 					<input type="hidden" name="ticket_id" value="<?php echo $ticket_id; ?>">
 						<input type="hidden" name="action" value="update_ticket">
+						<h4><?php echo stripslashes($ticket_name) ?></h4>
 						<table class="form-table">
 							<tbody>
 								<tr>
 									<th> 
 										<label>
-											<?php _e('Ticket Name:','event_espresso'); ?>
+											<?php _e('Ticket Name','event_espresso'); ?>
 										</label>
 									</th>
 									<td>
@@ -38,13 +39,13 @@ function edit_event_ticket(){
 								<tr>
 									<th>
 									<label for="base-ticket-select" <?php echo $styled ?>>
-										<?php _e('Select Base Template', 'event_espresso');  ?>
+										<?php _e('Select Stylesheet', 'event_espresso');  ?>
 									</label>
 									</th>
 									<td>
 										<select id="base-ticket-select" class="wide" <?php echo $disabled ?> name="ticket_file">
-										 <option <?php espresso_ticket_is_selected($fname,$ticket_file) ?> value="basic.html">
-											<?php _e('Default Template - Basic', 'event_espresso'); ?>
+										 <option <?php espresso_ticket_is_selected($fname,$ticket_file) ?> value="simple.css">
+											<?php _e('Default CSS - Simple', 'event_espresso'); ?>
 										</option>
 								<?php foreach( $files as $fname ) { ?>
 										<option <?php espresso_ticket_is_selected($fname,$ticket_file) ?> value="<?php echo $fname ?>"><?php echo $fname; ?></option>
@@ -81,7 +82,7 @@ function edit_event_ticket(){
 						
 						<div id="descriptiondivrich" class="postarea">
 						<label for="ticket_content">
-							<?php _e('Ticket Description/Instructions ','event_espresso'); ?><?php apply_filters('espresso_help', 'ticket_description_info') ?>
+							<strong><?php _e('Ticket Description/Instructions ','event_espresso'); ?></strong> <?php apply_filters('espresso_help', 'ticket_description_info') ?>
 						</label>
 						<div class="postbox">
 						<?php the_editor(stripslashes_deep($ticket_content), $id = 'ticket_content', $prev_id = 'title', $media_buttons = true, $tab_index = 3);?>

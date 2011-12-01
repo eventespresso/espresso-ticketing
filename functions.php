@@ -29,10 +29,10 @@ function espresso_ticket_content($id) {
 //Retunrs an array of available template files
 function espresso_ticket_template_files() {
 	// read our template dir and build an array of files
-	if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/index.php")) {
-		$dhandle = opendir(EVENT_ESPRESSO_UPLOAD_DIR . 'tickets/');//If the template files have been moved to the uplaods folder
+	if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/base.css")) {
+		$dhandle = opendir(EVENT_ESPRESSO_UPLOAD_DIR . 'tickets/css/');//If the template files have been moved to the uplaods folder
 	} else {
-		$dhandle = opendir(ESPRESSO_TICKETING_FULL_PATH . 'templates/');
+		$dhandle = opendir(ESPRESSO_TICKETING_FULL_PATH . 'templates/css/');
 	}
 
 	$files = array();
@@ -86,9 +86,9 @@ function espresso_ticket_launch($attendee_id=0, $registration_id=0){
 
 	//Get the registration date
 	$data->attendee->registration_date = $data->attendee->date;
-
+	
 	//Get the HTML file
-	$data->event->ticket_file = (!empty($data->event->ticket_file) && $data->event->ticket_file > '0') ? $data->event->ticket_file : 'basic.html';
+	$data->event->ticket_file = (!empty($data->event->ticket_file) && $data->event->ticket_file > '0') ? $data->event->ticket_file : 'simple.css';
 	//echo $data->event->ticket_file;
 
 	//Venue information
@@ -142,27 +142,27 @@ function espresso_ticket_launch($attendee_id=0, $registration_id=0){
 	//Get the HTML as an object
     ob_start();
 	if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/index.php")) {
-		require_once(EVENT_ESPRESSO_UPLOAD_DIR . 'tickets/'.$data->event->ticket_file);
+		require_once(EVENT_ESPRESSO_UPLOAD_DIR . 'tickets/index.php');
 	} else {
-		require_once('templates/'.$data->event->ticket_file);
+		require_once('templates/index.php');
 	}
 	$content = ob_get_clean();
 	$content = espresso_replace_ticket_shortcodes($content, $data);
 
 	//Check if debugging or mobile is set
-	if ( (isset($_REQUEST['debug']) && $_REQUEST['debug']==true) || stripos($_SERVER['HTTP_USER_AGENT'], 'mobile') !== false ){
-		echo $content;
+	if ( (isset($_REQUEST['pdf']) && $_REQUEST['pdf']==true)){
+		//Create the PDF
+		define('DOMPDF_ENABLE_REMOTE',true);
+		require_once(EVENT_ESPRESSO_PLUGINFULLPATH . '/class/dompdf/dompdf_config.inc.php');
+		$dompdf = new DOMPDF();
+		$dompdf->load_html($content);
+		//$dompdf->set_paper('A4', 'landscape');
+		$dompdf->render();
+		$dompdf->stream($ticket_name.".pdf", array("Attachment" => false));
 		exit(0);
 	}
 
-	//Create the PDF
-	define('DOMPDF_ENABLE_REMOTE',true);
-	require_once(EVENT_ESPRESSO_PLUGINFULLPATH . '/class/dompdf/dompdf_config.inc.php');
-	$dompdf = new DOMPDF();
-	$dompdf->load_html($content);
-	//$dompdf->set_paper('A4', 'landscape');
-	$dompdf->render();
-	$dompdf->stream($ticket_name.".pdf", array("Attachment" => false));
+	echo $content;
 	exit(0);
 
 }
@@ -338,7 +338,7 @@ if ( !function_exists( 'espresso_ticket_dd' ) ){
 				$field .= '<option '. $selected .' value="' . $ticket->id .'">' . $ticket->ticket_name. '</option>\n';
 			}
 			$field .= '</select>';
-			$html = '<p>' .__('Custom Ticket:','event_espresso') . $field .' <a class="thickbox"  href="#TB_inline?height=400&width=500&inlineId=custom_ticket_info" target="_blank"><img src="' . EVENT_ESPRESSO_PLUGINFULLURL . 'images/question-frame.png" width="16" height="16" /></a></p>';
+			$html = '<p>' .__('Custom Ticket','event_espresso') . $field .' <a class="thickbox"  href="#TB_inline?height=400&width=500&inlineId=custom_ticket_info" target="_blank"><img src="' . EVENT_ESPRESSO_PLUGINFULLURL . 'images/question-frame.png" width="16" height="16" /></a></p>';
 			return $html;
 		}
 	}

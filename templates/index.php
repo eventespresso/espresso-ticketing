@@ -1,69 +1,41 @@
+<?php
+global $org_options;
+if (file_exists(EVENT_ESPRESSO_UPLOAD_URL . "tickets/base.css")) {
+	$base_dir = EVENT_ESPRESSO_UPLOAD_URL . 'tickets/';//If the template files have been moved to the uploads folder
+} else {
+	$base_dir = ESPRESSO_TICKETING_FULL_URL;
+}
+//echo "<pre>".print_r($data,true)."</pre>";
+?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<title><?php echo stripslashes_deep($org_options['organization']) ?> <?php _e('Ticket for', 'event_espresso'); ?> <?php echo stripslashes_deep($data->attendee->fname . ' ' .$data->attendee->lname) ?> | <?php echo $data->attendee->registration_id ?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<style>
-img.map_image_link {
-	border: none !important;
-}
-.outside {
-	padding:20px;
-	width:800px;
-}
-.instructions {
-	background-color:#333;
-	text-align:center;
-	color:#FFF;
-	font-weight:bold;
-	margin-bottom:0.5em;
-	width: 700px;
-	padding: 10px;
-	border: 1px solid black;
-}
-.ticket {
-	border: 1px solid black;
-	width: 700px;
-	padding:20px 10px;
-	text-align: justify;
-	margin:20px 0 0 0;
-}
-.top_event_title {
-	font-size: 36px;
-	font-weight:bold;
-	margin:0;
-	padding:0;
-}
-.logo {
-	margin-top:2em;
-}
-.qr_code {
-	/* Added this so the QR image will line up with the text and Gravatar */
-	margin-top:-15px;
-}
-.gravatar {
-}
-.price {
-	font-size:2em;
-}
-.extra_info {
-	width: 700px;
-	padding: 10px;
-	text-align: justify;
-}
-.divider {
-	border-bottom:dashed #333 1px;
-	width:700px;
-	height:1px;
-	margin:10px 0;
-}
-.footer {
-	font-size:11px;
+<!-- Base Stylesheet do not change or remove -->
+<link rel="stylesheet" type="text/css" href="<?php echo $base_dir; ?>templates/base.css" media="screen" />
+
+<!-- Primary Style Sheet -->
+<link rel="stylesheet" type="text/css" href="<?php echo $base_dir; ?>templates/css/<?php echo $data->event->ticket_file; ?>" />
+
+<!-- Make sure the buttons don't print -->
+<style type="text/css">
+@media print{
+	.noPrint{display:none!important;}
 }
 </style>
 </head>
 
 <body>
 <div class="outside">
+<div class="print_button_div">
+	<form>
+		<input class="print_button noPrint" type="button" value=" Print Ticket " onclick="window.print();return false;" />
+	</form>
+	<form method="post" action="<?php echo espresso_ticket_url($data->attendee->id, $data->attendee->registration_id, '&pdf=true'); ?>" >
+		<input class="print_button noPrint" type="submit" value=" Download PDF " />
+	</form>
+</div>
   <div class="instructions">Print and bring this ticket with you to the event</div>
   <div class="ticket">
     <table width="100%" border="0">
