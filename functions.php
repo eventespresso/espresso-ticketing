@@ -338,7 +338,8 @@ if ( !function_exists( 'espresso_ticket_dd' ) ){
 				$field .= '<option '. $selected .' value="' . $ticket->id .'">' . $ticket->ticket_name. '</option>\n';
 			}
 			$field .= '</select>';
-			$html = '<p>' .__('Custom Ticket','event_espresso') . $field .' <a class="thickbox"  href="#TB_inline?height=400&width=500&inlineId=custom_ticket_info" target="_blank"><img src="' . EVENT_ESPRESSO_PLUGINFULLURL . 'images/question-frame.png" width="16" height="16" /></a></p>';
+			$ee_help = '<a class="thickbox" target="_blank" href="#TB_inline?height=400&width=500&inlineId=custom_ticket_info"><span class="question"> [?]</span></a>';
+			$html = '<p><label for="ticket_id">' .__('Custom Ticket ','event_espresso') . $ee_help . '</label>' . $field . '</p>';
 			return $html;
 		}
 	}
