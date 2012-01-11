@@ -18,7 +18,7 @@ function add_new_event_ticket(){
 								<tr>
 									<th> 
 										<label for="ticket_name">
-											<?php _e('Ticket Name','event_espresso'); ?> <?php echo apply_filters('espresso_help', 'ticket-guide'); ?>
+											<?php _e('Ticket Name','event_espresso'); ?> <?php echo apply_filters( 'filter_hook_espresso_help', 'ticket-guide'); ?>
 										</label>
 									</th>
 									<td><input type="text" name="ticket_name" size="25" /></td>
@@ -74,7 +74,7 @@ function add_new_event_ticket(){
 
 						<div id="descriptiondivrich" class="postarea">
 							<label for="ticket_content">
-								<?php _e('Ticket Description/Instructions ','event_espresso'); ?> <?php echo apply_filters('espresso_help', 'ticket_description_info') ?>
+								<?php _e('Ticket Description/Instructions ','event_espresso'); ?> <?php echo apply_filters( 'filter_hook_espresso_help', 'ticket_description_info') ?>
 							</label>
 							<div class="postbox">
 								<?php the_editor('', $id = 'ticket_content', $prev_id = 'title', $media_buttons = true, $tab_index = 3);?>
