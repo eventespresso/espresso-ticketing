@@ -57,14 +57,14 @@ function espresso_ticket_config_mnu() {
                                 break;
                         }
                     }
-					do_action('espresso_admin_notices'); 
+					do_action( 'action_hook_espresso_admin_notices'); 
                     ?>
 								<?php
 								//This line keeps the notices from displaying twice
-								if ( did_action( 'espresso_admin_notices' ) == false )
-								do_action('espresso_admin_notices');
+								if ( did_action( 'action_hook_espresso_admin_notices' ) == false )
+								do_action( 'action_hook_espresso_admin_notices');
 								?>
-                    <p><?php _e('Create customized ticket template for use in multiple events. ', 'event_espresso'); ?> <?php echo apply_filters('espresso_help', 'customized_ticket_info') ?></p>
+                    <p><?php _e('Create customized ticket template for use in multiple events. ', 'event_espresso'); ?> <?php echo apply_filters( 'filter_hook_espresso_help', 'customized_ticket_info') ?></p>
                     <form id="form1" name="form1" method="post" action="<?php echo $_SERVER["REQUEST_URI"] ?>">
                         <table id="table" class="widefat manage-tickets">
                             <thead>
