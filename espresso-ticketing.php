@@ -111,7 +111,7 @@ function espresso_export_ticket() {
 	//End Deprecated version 1.0
 }
 
-add_action('plugins_loaded', 'espresso_export_ticket');
+//add_action('plugins_loaded', 'espresso_export_ticket');
 
 if (is_admin())
 	wp_enqueue_style('espresso_ticketing_menu', ESPRESSO_TICKETING_FULL_URL . 'css/admin-menu-styles.css');
