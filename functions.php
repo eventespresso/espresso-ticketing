@@ -153,7 +153,7 @@ function espresso_ticket_launch($attendee_id=0, $registration_id=0){
 	if ( (isset($_REQUEST['pdf']) && $_REQUEST['pdf']==true)){
 		//Create the PDF
 		define('DOMPDF_ENABLE_REMOTE',true);
-		require_once(EVENT_ESPRESSO_PLUGINFULLPATH . '/class/dompdf/dompdf_config.inc.php');
+		require_once(EVENT_ESPRESSO_PLUGINFULLPATH . '/tpc/dompdf/dompdf_config.inc.php');
 		$dompdf = new DOMPDF();
 		$dompdf->load_html($content);
 		//$dompdf->set_paper('A4', 'landscape');
