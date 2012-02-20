@@ -1,7 +1,7 @@
 <?php
 global $org_options;
-if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/base.css")) {
-	$base_dir = EVENT_ESPRESSO_UPLOAD_URL . 'tickets/';//If the template files have been moved to the uploads folder
+if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/base.css")) {
+	$base_dir = EVENT_ESPRESSO_UPLOAD_URL . 'tickets/templates/';//If the template files have been moved to the uploads folder
 } else {
 	$base_dir = ESPRESSO_TICKETING_FULL_URL.'templates/';
 }

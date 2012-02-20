@@ -141,8 +141,8 @@ function espresso_ticket_launch($attendee_id=0, $registration_id=0){
 
 	//Get the HTML as an object
     ob_start();
-	if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/index.php")) {
-		require_once(EVENT_ESPRESSO_UPLOAD_DIR . 'tickets/index.php');
+	if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/index.php")) {
+		require_once(EVENT_ESPRESSO_UPLOAD_DIR . 'tickets/templates/index.php');
 	} else {
 		require_once('templates/index.php');
 	}
