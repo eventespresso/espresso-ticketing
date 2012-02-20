@@ -1,10 +1,11 @@
 <?php
 global $org_options;
-if (file_exists(EVENT_ESPRESSO_UPLOAD_URL . "tickets/base.css")) {
+if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/base.css")) {
 	$base_dir = EVENT_ESPRESSO_UPLOAD_URL . 'tickets/';//If the template files have been moved to the uploads folder
 } else {
-	$base_dir = ESPRESSO_TICKETING_FULL_URL;
+	$base_dir = ESPRESSO_TICKETING_FULL_URL.'templates/';
 }
+echo $base_dir;
 //echo "<pre>".print_r($data,true)."</pre>";
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -13,10 +14,10 @@ if (file_exists(EVENT_ESPRESSO_UPLOAD_URL . "tickets/base.css")) {
 <title><?php echo stripslashes_deep($org_options['organization']) ?> <?php _e('Ticket for', 'event_espresso'); ?> <?php echo stripslashes_deep($data->attendee->fname . ' ' .$data->attendee->lname) ?> | <?php echo $data->attendee->registration_id ?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- Base Stylesheet do not change or remove -->
-<link rel="stylesheet" type="text/css" href="<?php echo $base_dir; ?>templates/base.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="<?php echo $base_dir; ?>base.css" media="screen" />
 
 <!-- Primary Style Sheet -->
-<link rel="stylesheet" type="text/css" href="<?php echo $base_dir; ?>templates/css/<?php echo $data->event->ticket_file; ?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo $base_dir; ?>css/<?php echo $data->event->ticket_file; ?>" />
 
 <!-- Make sure the buttons don't print -->
 <style type="text/css">
