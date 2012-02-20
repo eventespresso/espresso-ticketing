@@ -1,13 +1,15 @@
 <?php
 function edit_event_ticket(){
 	global $wpdb;
-	$files = espresso_ticket_template_files();
+	$css_files = espresso_ticket_css_template_files();
+	$template_files = espresso_ticket_template_files();
 	$id=$_REQUEST['id'];
 	$results = $wpdb->get_results("SELECT * FROM ". EVENTS_TICKET_TEMPLATES ." WHERE id =".$id);
 	foreach ($results as $result){
 		$ticket_id= $result->id;
 		$ticket_name=stripslashes_deep($result->ticket_name);
-		$ticket_file=stripslashes_deep($result->ticket_file);
+		$css_file=stripslashes_deep($result->css_file);
+		$template_file=stripslashes_deep($result->template_file);
 		$ticket_logo_url=stripslashes_deep($result->ticket_logo_url);
 		$ticket_content=stripslashes_deep($result->ticket_content);
 	}
@@ -43,16 +45,35 @@ function edit_event_ticket(){
 									</label>
 									</th>
 									<td>
-										<select id="base-ticket-select" class="wide" <?php echo $disabled ?> name="ticket_file">
-										 <option <?php espresso_ticket_is_selected($fname,$ticket_file) ?> value="simple.css">
+										<select id="base-ticket-select" class="wide" <?php echo $disabled ?> name="css_file">
+										 <option <?php espresso_file_is_selected($fname,$css_file) ?> value="simple.css">
 											<?php _e('Default CSS - Simple', 'event_espresso'); ?>
 										</option>
-								<?php foreach( $files as $fname ) { ?>
-										<option <?php espresso_ticket_is_selected($fname,$ticket_file) ?> value="<?php echo $fname ?>"><?php echo $fname; ?></option>
+								<?php foreach( $css_files as $fname ) { ?>
+										<option <?php espresso_file_is_selected($fname,$css_file) ?> value="<?php echo $fname ?>"><?php echo $fname; ?></option>
 						<?php } ?>
 										</select>
 									</td>
 								</tr>
+								<?php if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/index.php")) { ?>
+								<tr>
+									<th>
+									<label for="base-template-select" <?php echo $styled ?>>
+										<?php _e('Select a Template', 'event_espresso');  ?>
+									</label>
+									</th>
+									<td>
+										<select id="base-template-select" class="wide" <?php echo $disabled ?> name="template_file">
+										 <option <?php espresso_file_is_selected($fname,$template_file) ?> value="index.php">
+											<?php _e('Default Template', 'event_espresso'); ?>
+										</option>
+								<?php foreach( $template_files as $fname ) { ?>
+										<option <?php espresso_file_is_selected($fname,$template_file) ?> value="<?php echo $fname ?>"><?php echo $fname; ?></option>
+								<?php } ?>
+										</select>
+									</td>
+								</tr>
+								<?php } ?>
 						  <?php
 							if(!empty($ticket_logo_url)){ 
 								$ticket_logo = $ticket_logo_url;
@@ -94,7 +115,7 @@ function edit_event_ticket(){
 									<?php _e('View Custom Ticket Tags', 'event_espresso'); ?>
 										</a> | <a class="thickbox" href="#TB_inline?height=300&width=400&inlineId=custom_ticket_example">
 									<?php _e('Ticket Example','event_espresso'); ?></a> 
-								| <a class="thickbox" href="<?php echo ESPRESSO_TICKETING_FULL_URL.'templates/'.$ticket_file; ?>?TB_iframe=true&height=200&width=630">
+								| <a class="thickbox" href="<?php echo ESPRESSO_TICKETING_FULL_URL.'templates/'.$css_file; ?>?TB_iframe=true&height=200&width=630">
 									<?php _e('Preview','event_espresso'); ?>
 									</a> </span></td>
 								</tr>

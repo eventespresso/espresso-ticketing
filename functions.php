@@ -5,7 +5,7 @@ function espresso_ticket_qr_code($atts){
 	$qr_data = '<img src="http://chart.googleapis.com/chart?chs=135x135&cht=qr&chl='.urlencode(json_encode(array( 'event_code'=>$event_code, 'registration_id'=>$registration_id, 'attendee_id'=>$attendee_id,'attendee_name'=>$attendee_first . ' ' . $attendee_last, 'event_name'=>$event_name,'ticket_type'=>$ticket_type, 'event_time'=>$event_time, 'amount_pd'=>html_entity_decode($org_options['currency_symbol']).$amount_pd )) ).'" alt="QR Check-in Code" />';
 	return $qr_data;
 }
-function espresso_ticket_is_selected($name, $selected='') {
+function espresso_file_is_selected($name, $selected='') {
 	   $input_item = $name;
 			 $option_selections = array($selected);
 	   if (!in_array( $input_item, $option_selections )  )
@@ -26,24 +26,26 @@ function espresso_ticket_content($id) {
     return $ticket_data;
 }
 
-//Retunrs an array of available template files
-function espresso_ticket_template_files() {
+//Retunrs an array of available css template files
+function espresso_ticket_css_template_files() {
 	// read our template dir and build an array of files
-	if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/base.css")) {
-		$dhandle = opendir(EVENT_ESPRESSO_UPLOAD_DIR . 'tickets/css/');//If the template files have been moved to the uplaods folder
+	if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
+		$dhandle = opendir(EVENT_ESPRESSO_UPLOAD_DIR . 'tickets/templates/css/');//If the template files have been moved to the uplaods folder
 	} else {
 		$dhandle = opendir(ESPRESSO_TICKETING_FULL_PATH . 'templates/css/');
 	}
 
 	$files = array();
+	
+	$exclude = array( '.', '..', 'index.htm', 'index.html', 'index.php', '.svn', 'base.css', '.DS_Store', basename($_SERVER['PHP_SELF']) );
 
-	if ($dhandle) { //if we managed to open the directory
+	//if we manage to open the directory
+	if ($dhandle) {
 		// loop through all of the files
-		while (false !== ($fname = readdir($dhandle))) {
-			// if the file is not this file, and does not start with a '.' or '..',
-			// then store it for later display
-			if ( ($fname != '.') && ($fname != 'index.html') && ($fname != '..') && ($fname != '.svn') && ($fname != basename($_SERVER['PHP_SELF'])) && ($fname != '.DS_Store') ) {
-				// store the filename
+		while (( $fname = readdir( $dhandle )) !== FALSE ) {
+			// if the file is not in the array of things to exclude
+			if ( !in_array( $fname, $exclude) && !is_dir( $fname )) {
+				// then store the filename
 				$files[] = $fname;
 			}
 		}
@@ -53,6 +55,37 @@ function espresso_ticket_template_files() {
 
 	return $files;
 }
+
+//Retunrs an array of available template files
+function espresso_ticket_template_files() {
+	// read our template dir and build an array of files
+	if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/index.php")) {
+		$dhandle = opendir(EVENT_ESPRESSO_UPLOAD_DIR . 'tickets/templates/');//If the template files have been moved to the uplaods folder
+	} else {
+		$dhandle = opendir(ESPRESSO_TICKETING_FULL_PATH . 'templates/');
+	}
+
+	$files = array();
+	
+	$exclude = array( '.', '..', '.svn', '.DS_Store', basename($_SERVER['PHP_SELF']) );
+
+	//if we manage to open the directory
+	if ($dhandle) {
+		// loop through all of the files
+		while (( $fname = readdir( $dhandle )) !== FALSE ) {
+			// if the file is not in the array of things to exclude
+			if ( !in_array( $fname, $exclude) && !is_dir( $fname )) {
+				// then store the filename
+				$files[] = $fname;
+			}
+		}
+		// close the directory
+		closedir($dhandle);
+	}
+
+	return $files;
+}
+
 
 //Creates the ticket pdf
 function espresso_ticket_launch($attendee_id=0, $registration_id=0){
@@ -64,7 +97,7 @@ function espresso_ticket_launch($attendee_id=0, $registration_id=0){
 		return;
 
 	//Get the event record
-    $sql = "SELECT ed.*, et.ticket_file, et.ticket_content, et.ticket_logo_url ";
+    $sql = "SELECT ed.*, et.css_file, et.template_file, et.ticket_content, et.ticket_logo_url ";
     isset($org_options['use_venue_manager']) && $org_options['use_venue_manager'] == 'Y' ? $sql .= ", v.id venue_id, v.name venue_name, v.address venue_address, v.city venue_city, v.state venue_state, v.zip venue_zip, v.country venue_country, v.meta venue_meta " : '';
     $sql .= " FROM " . EVENTS_DETAIL_TABLE . " ed ";
     isset($org_options['use_venue_manager']) && $org_options['use_venue_manager'] == 'Y' ? $sql .= " LEFT JOIN " . EVENTS_VENUE_REL_TABLE . " r ON r.event_id = ed.id LEFT JOIN " . EVENTS_VENUE_TABLE . " v ON v.id = r.venue_id " : '';
@@ -87,9 +120,12 @@ function espresso_ticket_launch($attendee_id=0, $registration_id=0){
 	//Get the registration date
 	$data->attendee->registration_date = $data->attendee->date;
 	
+	//Get the CSS file
+	$data->event->css_file = (!empty($data->event->css_file) && $data->event->css_file > '0') ? $data->event->css_file : 'simple.css';
+	//echo $data->event->css_file;
+	
 	//Get the HTML file
-	$data->event->ticket_file = (!empty($data->event->ticket_file) && $data->event->ticket_file > '0') ? $data->event->ticket_file : 'simple.css';
-	//echo $data->event->ticket_file;
+	$data->event->template_file = (!empty($data->event->template_file) && $data->event->template_file > '0') ? $data->event->template_file : 'index.php';
 
 	//Venue information
     if (isset($org_options['use_venue_manager']) && $org_options['use_venue_manager'] == 'Y') {
@@ -142,7 +178,7 @@ function espresso_ticket_launch($attendee_id=0, $registration_id=0){
 	//Get the HTML as an object
     ob_start();
 	if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/index.php")) {
-		require_once(EVENT_ESPRESSO_UPLOAD_DIR . 'tickets/templates/index.php');
+		require_once(EVENT_ESPRESSO_UPLOAD_DIR . 'tickets/templates/'.$data->event->template_file);
 	} else {
 		require_once('templates/index.php');
 	}

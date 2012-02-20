@@ -1,11 +1,10 @@
 <?php
 global $org_options;
-if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/base.css")) {
-	$base_dir = EVENT_ESPRESSO_UPLOAD_URL . 'tickets/templates/';//If the template files have been moved to the uploads folder
+if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
+	$base_dir = EVENT_ESPRESSO_UPLOAD_URL . 'tickets/templates/css/';//If the template files have been moved to the uploads folder
 } else {
-	$base_dir = ESPRESSO_TICKETING_FULL_URL.'templates/';
+	$base_dir = ESPRESSO_TICKETING_FULL_URL.'templates/css/';
 }
-echo $base_dir;
 //echo "<pre>".print_r($data,true)."</pre>";
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -17,7 +16,7 @@ echo $base_dir;
 <link rel="stylesheet" type="text/css" href="<?php echo $base_dir; ?>base.css" media="screen" />
 
 <!-- Primary Style Sheet -->
-<link rel="stylesheet" type="text/css" href="<?php echo $base_dir; ?>css/<?php echo $data->event->ticket_file; ?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo $base_dir.$data->event->css_file; ?>" />
 
 <!-- Make sure the buttons don't print -->
 <style type="text/css">

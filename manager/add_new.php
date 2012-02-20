@@ -1,7 +1,8 @@
 <?php
 function add_new_event_ticket(){
 
-	$files = espresso_ticket_template_files();
+	$css_files = espresso_ticket_css_template_files();
+	$template_files = espresso_ticket_template_files();
 	?>
 <!--Add event display-->
 
@@ -25,22 +26,38 @@ function add_new_event_ticket(){
 								</tr>
 								<tr>
 									<th>
-										<label for="base-ticket-select" <?php echo $styled ?>> 
+										<label for="base-css-select" <?php echo $styled ?>> 
 											<?php _e('Select Stylesheet', 'event_espresso');  ?>
 										</label>
 									</th>
 									<td>
-										<select id="base-ticket-select" class="wide" <?php echo $disabled ?> name="ticket_file">
-										<option <?php espresso_ticket_is_selected($fname) ?> value="simple.css">
+										<select id="base-css-select" class="wide" <?php echo $disabled ?> name="css_file">
+										<option <?php espresso_file_is_selected($fname) ?> value="simple.css">
 										<?php _e('Default CSS - Simple', 'event_espresso'); ?>
 										</option>
-										<?php foreach( $files as $fname ) { ?>
-										<option <?php espresso_ticket_is_selected($fname) ?> value="<?php echo $fname ?>"><?php echo $fname; ?></option>
+										<?php foreach( $css_files as $fname ) { ?>
+										<option <?php espresso_file_is_selected($fname) ?> value="<?php echo $fname ?>"><?php echo $fname; ?></option>
 								<?php } ?>
 									</select>
 									</td>
 								</tr>
-
+								<tr>
+									<th>
+										<label for="base-template-select" <?php echo $styled ?>> 
+											<?php _e('Select a Template', 'event_espresso');  ?>
+										</label>
+									</th>
+									<td>
+										<select id="base-template-select" class="wide" <?php echo $disabled ?> name="template_file">
+										<option <?php espresso_file_is_selected($fname) ?> value="index.php">
+										<?php _e('Default Template', 'event_espresso'); ?>
+										</option>
+										<?php foreach( $template_files as $fname ) { ?>
+										<option <?php espresso_file_is_selected($fname) ?> value="<?php echo $fname ?>"><?php echo $fname; ?></option>
+								<?php } ?>
+									</select>
+									</td>
+								</tr>
 								<?php
 									if(!empty($ticket_logo_url)){ 
 										$ticket_logo = $ticket_logo_url;
