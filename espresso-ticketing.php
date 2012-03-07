@@ -25,42 +25,43 @@
   along with this program; if not, write to the Free Software
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
- 
 global $wpdb;
-define( "ESPRESSO_TICKETING_VERSION", '2.0.6' );
-define( "ESPRESSO_TICKETING_PATH", "/" . plugin_basename( dirname( __FILE__ ) ) . "/" );
-define( "ESPRESSO_TICKETING_FULL_PATH", WP_PLUGIN_DIR . ESPRESSO_TICKETING_PATH );
-define( "ESPRESSO_TICKETING_FULL_URL", WP_PLUGIN_URL . ESPRESSO_TICKETING_PATH );
-define( "ESPRESSO_TICKETING_ACTIVE", TRUE );
-define( "EVENTS_TICKET_TEMPLATES", $wpdb->prefix . "events_ticket_templates" );
+define("ESPRESSO_TICKETING_VERSION", '2.0.6');
+define("ESPRESSO_TICKETING_PATH", "/" . plugin_basename(dirname(__FILE__)) . "/");
+define("ESPRESSO_TICKETING_FULL_PATH", WP_PLUGIN_DIR . ESPRESSO_TICKETING_PATH);
+define("ESPRESSO_TICKETING_FULL_URL", WP_PLUGIN_URL . ESPRESSO_TICKETING_PATH);
+define("ESPRESSO_TICKETING_ACTIVE", TRUE);
+define("EVENTS_TICKET_TEMPLATES", $wpdb->prefix . "events_ticket_templates");
 //echo $espresso_path;
 require_once('functions.php');
 require_once('manager/index.php');
-/*function event_espresso_ticket_config_mnu() {
-}*/
+/* function event_espresso_ticket_config_mnu() {
+  } */
 //Install plugin
-register_activation_hook( __FILE__, 'espresso_ticketing_install' );
-register_deactivation_hook( __FILE__, 'espresso_ticketing_deactivate' );
+register_activation_hook(__FILE__, 'espresso_ticketing_install');
+register_deactivation_hook(__FILE__, 'espresso_ticketing_deactivate');
 //Deactivate the plugin
-if ( !function_exists( 'espresso_ticketing_deactivate' ) ){
-    function espresso_ticketing_deactivate() {
-        update_option( 'espresso_ticketing_active', 0 );
-    }
+if (!function_exists('espresso_ticketing_deactivate')) {
+
+	function espresso_ticketing_deactivate() {
+		update_option('espresso_ticketing_active', 0);
+	}
+
 }
 
 //Install the plugin
-if ( !function_exists( 'espresso_ticketing_install' ) ){
+if (!function_exists('espresso_ticketing_install')) {
 
-    function espresso_ticketing_install() {
+	function espresso_ticketing_install() {
 
-        update_option( 'espresso_ticketing_version', ESPRESSO_TICKETING_VERSION );
-        update_option( 'espresso_ticketing_active', 1 );
-        global $wpdb;
+		update_option('espresso_ticketing_version', ESPRESSO_TICKETING_VERSION);
+		update_option('espresso_ticketing_active', 1);
+		global $wpdb;
 
-        $table_version = ESPRESSO_TICKETING_VERSION;
+		$table_version = ESPRESSO_TICKETING_VERSION;
 
-       	$table_name = "events_ticket_templates";
-    	$sql = "id int(11) unsigned NOT NULL AUTO_INCREMENT,
+		$table_name = "events_ticket_templates";
+		$sql = "id int(11) unsigned NOT NULL AUTO_INCREMENT,
 			ticket_name VARCHAR(100) DEFAULT NULL,
 			css_file VARCHAR(100) DEFAULT 'simple.css',
 			template_file VARCHAR(100) DEFAULT 'index.php',
@@ -70,32 +71,52 @@ if ( !function_exists( 'espresso_ticketing_install' ) ){
 			ticket_meta LONGTEXT DEFAULT NULL,
 			wp_user int(22) DEFAULT '1',
 			UNIQUE KEY id (id)";
-		
+
 		event_espresso_run_install($table_name, $table_version, $sql);
-		
+
 		$table_name = "events_attendee_checkin";
-    	$sql = "id int(11) unsigned NOT NULL AUTO_INCREMENT,
+		$sql = "id int(11) unsigned NOT NULL AUTO_INCREMENT,
 			attendee_id int(11) NOT NULL,
 			registration_id varchar(23) NOT NULL,
 			event_id int(11) NOT NULL,
 			checked_in int(1) NOT NULL,
 			date_scanned datetime NOT NULL,
 			KEY attendee_id (attendee_id, registration_id, event_id)";
-		
+
 		event_espresso_run_install($table_name, $table_version, $sql);
-		
 	}
-	
+
 }
 
-function espresso_ticket_url($attendee_id, $registration_id, $extra = ''){
-	$extra = empty($extra) ? '' : '&amp;'.$extra;
-	return home_url().'/?ticket_launch=true&amp;id='.$attendee_id.'&amp;r_id='. $registration_id.'&amp;html=true'.$extra;
+function espresso_ticket_url($attendee_id, $registration_id, $extra = '') {
+	$extra = empty($extra) ? '' : '&amp;' . $extra;
+	return home_url() . '/?ticket_launch=true&amp;id=' . $attendee_id . '&amp;r_id=' . $registration_id . '&amp;html=true' . $extra;
 }
 
 if (is_admin())
 	wp_enqueue_style('espresso_ticketing_menu', ESPRESSO_TICKETING_FULL_URL . 'css/admin-menu-styles.css');
 
-if (isset($_REQUEST['page']) && $_REQUEST['page']=='event_tickets') {
+if (isset($_REQUEST['page']) && $_REQUEST['page'] == 'event_tickets') {
 	wp_enqueue_style('espresso_ticketing', ESPRESSO_TICKETING_FULL_URL . 'css/admin-styles.css');
 }
+
+function espresso_event_attendee_table_ticketing_header() {
+	?>
+	<th class="manage-column column-title" id="attended" scope="col" title="Click to Sort" style="width: 8%;"> <span>
+	<?php _e('Attended', 'event_espresso'); ?>
+		</span> <span class="sorting-indicator"></span> </th>
+	<?php
+	$t_cols += 1;
+}
+
+add_action('action_hook_espresso_event_attendee_table_header', 'espresso_event_attendee_table_ticketing_header');
+
+function espresso_attendee_table_ticketing_secondary_button() {
+	?>
+	<input name="attended_customer" type="submit" class="button-secondary" id="attended_customer" value="<?php _e('Mark as Attended', 'event_espresso'); ?>" style="margin:10px 0 0 20px;" />
+
+	<input name="unattended_customer" type="submit" class="button-secondary" id="unattended_customer" value="<?php _e('Unmark as Attended', 'event_espresso'); ?>" style="margin:10px 0 0 20px;" />
+	<?php
+}
+
+add_action('action_hook_espresso_attendee_table_secondary_button', 'espresso_attendee_table_ticketing_secondary_button');
