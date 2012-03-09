@@ -36,7 +36,7 @@ function espresso_ticket_css_template_files() {
 	}
 
 	$files = array();
-	
+
 	$exclude = array( '.', '..', 'index.htm', 'index.html', 'index.php', '.svn', 'base.css', '.DS_Store', basename($_SERVER['PHP_SELF']) );
 
 	//if we manage to open the directory
@@ -66,7 +66,7 @@ function espresso_ticket_template_files() {
 	}
 
 	$files = array();
-	
+
 	$exclude = array( '.', '..', '.svn', '.DS_Store', basename($_SERVER['PHP_SELF']) );
 
 	//if we manage to open the directory
@@ -119,11 +119,11 @@ function espresso_ticket_launch($attendee_id=0, $registration_id=0){
 
 	//Get the registration date
 	$data->attendee->registration_date = $data->attendee->date;
-	
+
 	//Get the CSS file
 	$data->event->css_file = (!empty($data->event->css_file) && $data->event->css_file > '0') ? $data->event->css_file : 'simple.css';
 	//echo $data->event->css_file;
-	
+
 	//Get the HTML file
 	$data->event->template_file = (!empty($data->event->template_file) && $data->event->template_file > '0') ? $data->event->template_file : 'index.php';
 
@@ -365,18 +365,17 @@ if ( !function_exists( 'espresso_ticket_dd' ) ){
 		$tickets = $wpdb->get_results($sql);
 		$num_rows = $wpdb->num_rows;
 		//return print_r( $tickets );
-		if ($num_rows > 0) {
-			$field = '<select name="ticket_id" id="ticket_id">\n';
+		$field = '<select name="ticket_id" id="ticket_id">\n';
 			$field .= '<option value="0">'.__('Select a Ticket', 'event_espresso').'</option>';
-
+		if ($num_rows > 0) {
 			foreach ($tickets as $ticket){
 				$selected = $ticket->id == $current_value ? 'selected="selected"' : '';
 				$field .= '<option '. $selected .' value="' . $ticket->id .'">' . $ticket->ticket_name. '</option>\n';
 			}
-			$field .= '</select>';
+		}
+		$field .= '</select>';
 			$ee_help = '<a class="thickbox" target="_blank" href="#TB_inline?height=400&width=500&inlineId=custom_ticket_info"><span class="question"> [?]</span></a>';
 			$html = '<p><label for="ticket_id">' .__('Custom Ticket ','event_espresso') . $ee_help . '</label>' . $field . '</p>';
 			return $html;
-		}
 	}
 }
