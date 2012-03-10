@@ -94,26 +94,27 @@ function espresso_ticket_url($attendee_id, $registration_id, $extra = '') {
 }
 
 function espresso_enqueue_admin_ticketing_menu_css() {
-	if (is_admin())
+	if (is_admin()) {
 		wp_enqueue_style('espresso_ticketing_menu', ESPRESSO_TICKETING_FULL_URL . 'css/admin-menu-styles.css');
+		if (isset($_REQUEST['page']) && $_REQUEST['page'] == 'event_tickets') {
+			wp_enqueue_style('espresso_ticketing', ESPRESSO_TICKETING_FULL_URL . 'css/admin-styles.css');
+		}
+	}
 }
 
 add_action('init', 'espresso_enqueue_admin_ticketing_menu_css');
 
-if (isset($_REQUEST['page']) && $_REQUEST['page'] == 'event_tickets') {
-	wp_enqueue_style('espresso_ticketing', ESPRESSO_TICKETING_FULL_URL . 'css/admin-styles.css');
-}
-
-function espresso_event_attendee_table_ticketing_header() {
+function espresso_event_attendee_table_ticketing_header($t_cols) {
 	?>
 	<th class="manage-column column-title" id="attended" scope="col" title="Click to Sort" style="width: 8%;"> <span>
-	<?php _e('Attended', 'event_espresso'); ?>
+			<?php _e('Attended', 'event_espresso'); ?>
 		</span> <span class="sorting-indicator"></span> </th>
 	<?php
 	$t_cols += 1;
+	return $t_cols;
 }
 
-add_action('action_hook_espresso_event_attendee_table_header', 'espresso_event_attendee_table_ticketing_header');
+add_filter('filter_hook_espresso_event_attendee_table_header', 'espresso_event_attendee_table_ticketing_header');
 
 function espresso_attendee_table_ticketing_secondary_button() {
 	?>
@@ -134,7 +135,6 @@ function espresso_event_editor_ticketing_meta_box($event) {
 }
 
 function espresso_register_ticketing_event_editor_meta_boxes() {
-	global $org_options;
 	add_meta_box('espresso_event_editor_ticketing_box', __('Custom Tickets', 'event_espresso'), 'espresso_event_editor_ticketing_meta_box', 'toplevel_page_events', 'side', 'high');
 }
 
