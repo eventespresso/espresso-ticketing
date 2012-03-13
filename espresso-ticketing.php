@@ -135,7 +135,7 @@ function espresso_event_editor_ticketing_meta_box($event) {
 }
 
 function espresso_register_ticketing_event_editor_meta_boxes() {
-	add_meta_box('espresso_event_editor_ticketing_box', __('Custom Tickets', 'event_espresso'), 'espresso_event_editor_ticketing_meta_box', 'toplevel_page_events', 'side', 'high');
+	add_meta_box('espresso_event_editor_ticketing_box', __('Custom Tickets', 'event_espresso'), 'espresso_event_editor_ticketing_meta_box', 'toplevel_page_events', 'side', 'default');
 }
 
-add_action('current_screen', 'espresso_register_ticketing_event_editor_meta_boxes');
+add_action('current_screen', 'espresso_register_ticketing_event_editor_meta_boxes', 40);
