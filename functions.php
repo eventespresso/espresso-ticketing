@@ -2,7 +2,7 @@
 function espresso_ticket_qr_code($atts){
 	global $org_options;
 	extract( $atts );
-	$qr_data = '<img src="http://chart.googleapis.com/chart?chs=135x135&cht=qr&chl='.urlencode(json_encode(array( 'event_code'=>$event_code, 'registration_id'=>$registration_id, 'attendee_id'=>$attendee_id,'attendee_name'=>$attendee_first . ' ' . $attendee_last, 'event_name'=>$event_name,'ticket_type'=>$ticket_type, 'event_time'=>$event_time, 'amount_pd'=>html_entity_decode($org_options['currency_symbol']).$amount_pd )) ).'" alt="QR Check-in Code" />';
+	$qr_data = '<img src="http://chart.googleapis.com/chart?chs=135x135&cht=qr&chl='.urlencode(json_encode(array( 'event_code'=>$event_code, 'registration_id'=>$registration_id, 'attendee_id'=>$attendee_id )) ).'" alt="QR Check-in Code" />';
 	return $qr_data;
 }
 function espresso_file_is_selected($name, $selected='') {
