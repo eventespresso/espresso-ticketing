@@ -75,31 +75,38 @@ if (!function_exists('espresso_ticketing_install')) {
 		event_espresso_run_install($table_name, $table_version, $sql);
 
 		$table_name = "events_attendee_checkin";
-		$sql = "id int(11) unsigned NOT NULL AUTO_INCREMENT,
+    	$sql = "id int(11) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
 			attendee_id int(11) NOT NULL,
 			registration_id varchar(23) NOT NULL,
 			event_id int(11) NOT NULL,
-			checked_in int(1) NOT NULL,
+			checked_in int(11) NOT NULL,
 			date_scanned datetime NOT NULL,
-			KEY attendee_id (attendee_id, registration_id, event_id)";
-
+            KEY attendee_id (attendee_id, registration_id, event_id)";
+		
 		event_espresso_run_install($table_name, $table_version, $sql);
 	}
 
 }
 
-function espresso_ticket_url($attendee_id, $registration_id, $extra = '') {
-	$extra = empty($extra) ? '' : '&amp;' . $extra;
-	return home_url() . '/?ticket_launch=true&amp;id=' . $attendee_id . '&amp;r_id=' . $registration_id . '&amp;html=true' . $extra;
+//Install plugin
+register_activation_hook( __FILE__, 'espresso_ticketing_install' );
+register_deactivation_hook( __FILE__, 'espresso_ticketing_deactivate' );
+
+function espresso_ticket_url($attendee_id, $registration_id, $extra = ''){
+	$extra = empty($extra) ? '' : '&amp;'.$extra;
+	return home_url().'/?ticket_launch=true&amp;id='.$attendee_id.'&amp;r_id='. $registration_id.'&amp;html=true'.$extra;
 }
 
-function espresso_enqueue_admin_ticketing_menu_css() {
-	if (is_admin()) {
-		wp_enqueue_style('espresso_ticketing_menu', ESPRESSO_TICKETING_FULL_URL . 'css/admin-menu-styles.css');
-		if (isset($_REQUEST['page']) && $_REQUEST['page'] == 'event_tickets') {
-			wp_enqueue_style('espresso_ticketing', ESPRESSO_TICKETING_FULL_URL . 'css/admin-styles.css');
-		}
-	}
+if (!function_exists("espresso_ticketing_load_scripts")) {
+    function espresso_ticketing_load_scripts(){
+        if (is_admin()){
+            wp_enqueue_style('espresso_ticketing_menu', ESPRESSO_TICKETING_FULL_URL . 'css/admin-menu-styles.css');
+        }
+
+        if (isset($_REQUEST['page']) && $_REQUEST['page']=='event_tickets') {
+        	wp_enqueue_style('espresso_ticketing', ESPRESSO_TICKETING_FULL_URL . 'css/admin-styles.css');
+        }
+    }
 }
 
 add_action('init', 'espresso_enqueue_admin_ticketing_menu_css');
