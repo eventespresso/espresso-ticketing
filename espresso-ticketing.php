@@ -97,8 +97,8 @@ function espresso_ticket_url($attendee_id, $registration_id, $extra = ''){
 	return home_url().'/?ticket_launch=true&amp;id='.$attendee_id.'&amp;r_id='. $registration_id.'&amp;html=true'.$extra;
 }
 
-if (!function_exists("espresso_ticketing_load_scripts")) {
-    function espresso_ticketing_load_scripts(){
+if (!function_exists("espresso_enqueue_admin_ticketing_menu_css")) {
+    function espresso_enqueue_admin_ticketing_menu_css(){
         if (is_admin()){
             wp_enqueue_style('espresso_ticketing_menu', ESPRESSO_TICKETING_FULL_URL . 'css/admin-menu-styles.css');
         }
@@ -108,8 +108,9 @@ if (!function_exists("espresso_ticketing_load_scripts")) {
         }
     }
 }
-
 add_action('init', 'espresso_enqueue_admin_ticketing_menu_css');
+
+
 
 function espresso_event_attendee_table_ticketing_header($t_cols) {
 	?>
