@@ -1,7 +1,7 @@
 <?php
 
 function espresso_ticket_config_mnu() {
-	global $wpdb, $espresso_wp_user, $espresso_premium;
+	global $wpdb, $current_user, $espresso_premium;
 	?>
 	<div class="wrap">
 		<div id="icon-options-event" class="icon32"> </div>
@@ -80,7 +80,7 @@ function espresso_ticket_config_mnu() {
 					$sql = "SELECT * FROM " . EVENTS_TICKET_TEMPLATES . " e";
 
 					if (function_exists('espresso_manager_pro_version') && !empty($_SESSION['espresso_use_selected_manager'])) {
-						$sql .= " JOIN $wpdb->users u on u.ID = e.wp_user WHERE e.wp_user = " . $espresso_wp_user;
+						$sql .= " JOIN $wpdb->users u on u.ID = e.wp_user WHERE e.wp_user = " . $current_user->ID;
 					} elseif (function_exists('espresso_member_data') && ( espresso_member_data('role') == 'espresso_event_manager' || espresso_member_data('role') == 'espresso_group_admin')) {
 						$sql .= " JOIN $wpdb->users u on u.ID = e.wp_user WHERE e.wp_user = " . espresso_member_data('id');
 					}
