@@ -94,7 +94,7 @@ function add_new_event_ticket(){
 								<?php _e('Ticket Description/Instructions ','event_espresso'); ?> <?php echo apply_filters( 'filter_hook_espresso_help', 'ticket_description_info') ?>
 							</label>
 							<div class="postbox">
-								<?php the_editor('', $id = 'ticket_content', $prev_id = 'title', $media_buttons = true, $tab_index = 3);?>
+								<?php wp_editor('', 'ticket_content', array('media_buttons' => true, 'tab_index' => 3));?>
 									<table id="manage-event-ticket-form" cellspacing="0">
 										<tbody>
 											<tr>
