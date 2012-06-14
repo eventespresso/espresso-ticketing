@@ -103,8 +103,16 @@ function espresso_ticket_config_mnu() {
 										<td><?php echo $ticket_id ?></td>
 										<td class="post-title page-title column-title"><strong><a href="admin.php?page=event_tickets&action=edit_ticket&id=<?php echo $ticket_id ?>"><?php echo $ticket_name ?></a></strong>
 											<div class="row-actions"><span class="edit"><a href="admin.php?page=event_tickets&action=edit_ticket&id=<?php echo $ticket_id ?>"><?php _e('Edit', 'event_espresso'); ?></a> | </span><span class="delete"><a onclick="return confirmDelete();" class="delete submitdelete" href="admin.php?page=event_tickets&action=delete_ticket&id=<?php echo $ticket_id ?>"><?php _e('Delete', 'event_espresso'); ?></a></span></div>
-			              </td>                                            <?php if (function_exists('espresso_user_meta') && espresso_is_admin() == true) { ?>
-											<td><?php echo espresso_user_meta($wp_user, 'user_firstname') != '' ? espresso_user_meta($wp_user, 'user_firstname') . ' ' . espresso_user_meta($wp_user, 'user_lastname') : espresso_user_meta($wp_user, 'display_name'); ?></td>
+										</td>
+										<?php
+										if (function_exists('espresso_is_admin') && espresso_is_admin() == true && $espresso_premium == true) {
+											$user_company = espresso_user_meta($wp_user, 'company') != '' ? espresso_user_meta($wp_user, 'company') : '';
+											$user_organization = espresso_user_meta($wp_user, 'organization') != '' ? espresso_user_meta($wp_user, 'organization') : '';
+											$user_co_org = $user_company != '' ? $user_company : $user_organization;
+											?>
+											<td class="date"><?php echo espresso_user_meta($wp_user, 'user_firstname') != '' ? espresso_user_meta($wp_user, 'user_firstname') . ' ' . espresso_user_meta($wp_user, 'user_lastname') . ' (<a href="user-edit.php?user_id='.$wp_user.'">' . espresso_user_meta($wp_user, 'user_nicename'). '</a>)' : espresso_user_meta($wp_user, 'display_name')  . ' (<a href="user-edit.php?user_id='.$wp_user.'">' . espresso_user_meta($wp_user, 'user_nicename'). '</a>)'; ?>
+												<?php echo $user_co_org != '' ? '<br />[' . espresso_user_meta($wp_user, 'company') . ']' : ''; ?>
+											</td>
 										<?php } ?>
 										<td><a href="admin.php?page=event_tickets&action=edit_ticket&id=<?php echo $ticket_id ?>">
 												<?php _e('Edit Ticket Template', 'event_espresso'); ?>
