@@ -5,6 +5,35 @@ function espresso_ticket_qr_code($atts){
 	$qr_data = '<img src="http://chart.googleapis.com/chart?chs=135x135&cht=qr&chl='.urlencode(json_encode(array( 'event_code'=>$event_code, 'registration_id'=>$registration_id, 'attendee_id'=>$attendee_id )) ).'" alt="QR Check-in Code" />';
 	return $qr_data;
 }
+
+/**
+	 * Get either a Gravatar URL or complete image tag for a specified email address.
+	 *
+	 * @param string $email The email address
+	 * @param string $s Size in pixels, defaults to 80px [ 1 - 512 ]
+	 * @param string $d Default imageset to use [ 404 | mm | identicon | monsterid | wavatar ]
+	 * @param string $r Maximum rating (inclusive) [ g | pg | r | x ]
+	 * @param boole $img True to return a complete IMG tag False for just the URL
+	 * @param array $atts Optional, additional key/value attributes to include in the IMG tag
+	 * @return String containing either just a URL or a complete image tag
+	 * @source http://gravatar.com/site/implement/images/php/
+	 */
+	 if (!function_exists('espresso_get_gravatar')) {
+	
+		function espresso_get_gravatar( $email, $s = 80, $d = 'mm', $r = 'g', $img = false, $atts = array() ) {
+			$url = 'http://www.gravatar.com/avatar/';
+			$url .= md5( strtolower( trim( $email ) ) );
+			$url .= "?s=$s&d=$d&r=$r";
+			if ( $img ) {
+				$url = '<img src="' . $url . '"';
+				foreach ( $atts as $key => $val )
+					$url .= ' ' . $key . '="' . $val . '"';
+				$url .= ' />';
+			}
+			return $url;
+		}
+	 }
+	 
 function espresso_file_is_selected($name, $selected='') {
 	   $input_item = $name;
 			 $option_selections = array($selected);
@@ -143,7 +172,7 @@ function espresso_ticket_launch($attendee_id=0, $registration_id=0){
     }
 
 	//Create the Gravatar image
-	$data->gravatar = espresso_get_gravatar($data->attendee->email, $size = '100', $default = 'http://www.gravatar.com/avatar/' );
+	$data->gravatar = '<img src="' . espresso_get_gravatar($data->attendee->email, $size = '100', $default = 'http://www.gravatar.com/avatar/' ) . '" alt="Gravatar">';
 
 	//Google map IMAGE creation
 	$data->event->google_map_image = espresso_google_map_link(array('id' => $data->event->venue_id, 'address' => $data->event->address, 'city' => $data->event->city, 'state' => $data->event->state, 'zip' => $data->event->zip, 'country' => $data->event->country, 'type'=>'map'));
@@ -152,9 +181,12 @@ function espresso_ticket_launch($attendee_id=0, $registration_id=0){
 	$data->event->google_map_link = espresso_google_map_link(array('address' => $data->event->address, 'city' => $data->event->city, 'state' => $data->event->state, 'zip' => $data->event->zip, 'country' => $data->event->country, 'type'=>'text'));
 
 	//Create the logo
+	$data->event->ticket_logo_image = '';
 	$data->event->ticket_logo_url = empty($data->event->ticket_logo_url) ? $org_options['default_logo_url']: $data->event->ticket_logo_url;
-	$image_size = getimagesize($data->event->ticket_logo_url);
-	$data->event->ticket_logo_image = '<img src="'.$data->event->ticket_logo_url.'" '.$image_size[3].' alt="logo" /> ';
+	if ( !empty($data->event->ticket_logo_url) ){
+		$image_size = getimagesize($data->event->ticket_logo_url);
+		$data->event->ticket_logo_image = '<img src="'.$data->event->ticket_logo_url.'" '.$image_size[3].' alt="logo" /> ';
+	}
 
 	//Create the QR Code image
 	$data->qr_code = espresso_ticket_qr_code( array(
