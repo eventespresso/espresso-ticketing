@@ -99,7 +99,7 @@ function espresso_ticket_url($attendee_id, $registration_id, $extra = ''){
 
 if (!function_exists("espresso_enqueue_admin_ticketing_menu_css")) {
     function espresso_enqueue_admin_ticketing_menu_css(){
-        if (is_admin()){
+        if ( is_admin() && function_exists('espresso_version') && espresso_version() >= '3.2.P' ){
             wp_enqueue_style('espresso_ticketing_menu', ESPRESSO_TICKETING_FULL_URL . 'css/admin-menu-styles.css');
         }
 
