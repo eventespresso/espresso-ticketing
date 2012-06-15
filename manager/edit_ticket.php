@@ -158,16 +158,20 @@ function edit_event_ticket(){
 				}
 		}
 		
+
 		// process the remove link in the metabox
-				jQuery('#remove-image').click(function(){
-				confirm('Do you really want to delete this image? Please remember to update your ticket to complete the removal');
-				jQuery("#upload_image").val('');
-				jQuery("p.ticket-logo-thumb").remove();
-				jQuery("p#image-display").remove();
-				jQuery('#remove-image').remove();
-				//jQuery("#show_thumb_in_lists, #show_on_calendar, #show_thumb_in_regpage").val('N');
-				});
-				
+			jQuery('#remove-image').click(function(){
+				var answer = confirm('<?php _e('Do you really want to delete this image? Please remember to save your settings to complete the removal.', 'event_espresso'); ?>');
+				if (answer){
+					jQuery("#upload_image").val('');
+					jQuery("p.ticket-logo-thumb").remove();
+					jQuery("p#image-display").remove();
+					jQuery('#remove-image').remove();
+				}
+				return false;
+			});
+			
+			
 	});
 
 	//]]>
