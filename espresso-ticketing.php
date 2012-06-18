@@ -25,8 +25,12 @@
   along with this program; if not, write to the Free Software
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
+ //Define the version of the plugin
+function espresso_ticketing_version() {
+	return '2.0.06';
+}
 global $wpdb;
-define("ESPRESSO_TICKETING_VERSION", '2.0.6');
+define("ESPRESSO_TICKETING_VERSION", espresso_ticketing_version());
 define("ESPRESSO_TICKETING_PATH", "/" . plugin_basename(dirname(__FILE__)) . "/");
 define("ESPRESSO_TICKETING_FULL_PATH", WP_PLUGIN_DIR . ESPRESSO_TICKETING_PATH);
 define("ESPRESSO_TICKETING_FULL_URL", WP_PLUGIN_URL . ESPRESSO_TICKETING_PATH);
