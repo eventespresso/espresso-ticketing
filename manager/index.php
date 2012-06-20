@@ -132,7 +132,7 @@ function espresso_ticket_config_mnu() {
 		</form>
 		<?php
 		$main_post_content = ob_get_clean();
-		if (espresso_version() >= '3.2') {
+		if ( function_exists('espresso_version') && espresso_version() >= '3.2') {
 			ob_start();
 			do_meta_boxes('event-espresso_page_event_tickets', 'side', null);
 			$sidebar_content = ob_get_clean();
