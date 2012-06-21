@@ -1,10 +1,14 @@
 <?php
 global $org_options;
+
+//Build the path to the css files
 if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
 	$base_dir = EVENT_ESPRESSO_UPLOAD_URL . 'tickets/templates/css/';//If the template files have been moved to the uploads folder
 } else {
-	$base_dir = ESPRESSO_TICKETING_FULL_URL.'templates/css/';
+	$base_dir = ESPRESSO_TICKETING_FULL_URL.'templates/css/';//Default location
 }
+
+//Output the $data (array) variable that contains the attendee information and ticket settings
 //echo "<pre>".print_r($data,true)."</pre>";
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -73,7 +77,7 @@ if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
       </tr>
     </table>
   </div>
-  <div class="footer">Powered by the Event Espresso Ticketing System for WordPress</div>
+  <div class="footer">Powered by the <a href="http://eventespresso.com" target="_blank">Event Espresso Ticketing System</a> for WordPress</div>
 </div>
 </body>
 </html>
