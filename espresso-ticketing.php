@@ -40,7 +40,7 @@ function ee_ticketing_load_pue_update() {
 	if (file_exists(EVENT_ESPRESSO_PLUGINFULLPATH . 'class/pue/pue-client.php')) { //include the file 
 		require(EVENT_ESPRESSO_PLUGINFULLPATH . 'class/pue/pue-client.php' );
 		$api_key = $org_options['site_license_key'];
-		$host_server_url = 'http://beta.eventespresso.com';
+		$host_server_url = 'http://eventespresso.com';
 		$plugin_slug = 'espresso-ticketing';
 		$options = array(
 			'apikey' => $api_key,
