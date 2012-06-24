@@ -25,7 +25,7 @@ function edit_event_ticket(){
 				<form id="add-edit-new-event-ticket" method="post" action="<?php echo $_SERVER['REQUEST_URI'];?>">
 					<input type="hidden" name="ticket_id" value="<?php echo $ticket_id; ?>">
 						<input type="hidden" name="action" value="update_ticket">
-						<h4><?php echo stripslashes($ticket_name) ?></h4>
+						<?php /*?><h4><?php echo stripslashes($ticket_name) ?></h4><?php */?>
 						<table class="form-table">
 							<tbody>
 								<tr>
@@ -103,7 +103,14 @@ function edit_event_ticket(){
 						
 						<div id="descriptiondivrich" class="postarea">
 						<label for="ticket_content">
-							<strong><?php _e('Ticket Description/Instructions ','event_espresso'); ?></strong> <?php echo apply_filters( 'filter_hook_espresso_help', 'ticket_description_info') ?>
+							<strong><?php _e('Ticket Description/Instructions ','event_espresso'); ?></strong> 
+							<?php 
+											if ( function_exists('espresso_version') && espresso_version() >= '3.2.P' ){
+												echo apply_filters( 'filter_hook_espresso_help', 'ticket_description_info');
+											}else{
+												echo '<a class="thickbox" href="#TB_inline?height=300&width=400&inlineId=ticket_description_info" target="_blank"><img src="'.EVENT_ESPRESSO_PLUGINFULLURL .'/images/question-frame.png" width="16" height="16" /></a>';
+											}
+											?>
 						</label>
 						<div class="postbox">
 						<?php wp_editor(stripslashes_deep($ticket_content), 'ticket_content', array('media_buttons' => true, 'tab_index' => 3));?>
@@ -111,13 +118,13 @@ function edit_event_ticket(){
 							<tbody>
 								<tr>
 									<td class="aer-word-count"></td>
-									<td class="autosave-info"><span> <a class="thickbox" href="#TB_inline?height=300&width=400&inlineId=custom_ticket_info">
+									<td class="autosave-info"><span> <?php /*?><a class="thickbox" href="#TB_inline?height=300&width=400&inlineId=custom_ticket_info">
 									<?php _e('View Custom Ticket Tags', 'event_espresso'); ?>
 										</a> | <a class="thickbox" href="#TB_inline?height=300&width=400&inlineId=custom_ticket_example">
 									<?php _e('Ticket Example','event_espresso'); ?></a> 
 								| <a class="thickbox" href="<?php echo ESPRESSO_TICKETING_FULL_URL.'templates/'.$css_file; ?>?TB_iframe=true&height=200&width=630">
 									<?php _e('Preview','event_espresso'); ?>
-									</a> </span></td>
+									</a><?php */?> </span></td>
 								</tr>
 							</tbody>
 						</table>

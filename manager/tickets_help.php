@@ -85,11 +85,11 @@
     	 */
     ?>
 	<div id="custom_ticket_tags" class="pop-help" >
-		<div class="TB-ee-frame">
+		<div class="TB-ee-frame"  style=" height:500px; overflow:scroll">
 			<h2>
 				<?php _e('Custom Ticket Tags', 'event_espresso'); ?>
 			</h2>
-			<p> //Attendee/Event Information
+			<p> //Attendee/Event Information<br />
 				[att_id]<br />
 				[qr_code]<br />
 				[event_id]<br />
