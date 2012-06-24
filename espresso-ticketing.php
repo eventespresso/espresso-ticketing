@@ -32,7 +32,7 @@ function espresso_ticketing_version() {
 
 //Update notifications
 add_action('action_hook_espresso_ticketing_update_api', 'ee_ticketing_load_pue_update');
-function ee_recurring_load_pue_update() {
+function ee_ticketing_load_pue_update() {
 	global $org_options, $espresso_check_for_updates;
 	if ( $espresso_check_for_updates == false )
 		return;
