@@ -204,6 +204,19 @@ function espresso_ticket_launch($attendee_id=0, $registration_id=0){
 		)),
 	));
 
+	//Build the seating assignment
+	$seatingchart_tag = '';
+	if (defined("ESPRESSO_SEATING_CHART")) {
+		if (class_exists("seating_chart")) {
+			if ( seating_chart::check_event_has_seating_chart($data->attendee->event_id)) {
+				$rs = $wpdb->get_row("select scs.* from ".EVENTS_SEATING_CHART_EVENT_SEAT_TABLE." sces inner join ".EVENTS_SEATING_CHART_SEAT_TABLE." scs on sces.seat_id = scs.id where sces.attendee_id = ".$attendee_id);
+				if ( $rs !== NULL ) {
+					 $data->attendee->seatingchart_tag = $rs->custom_tag." ".$rs->seat." ".$rs->row;
+				}
+			}
+		}
+	}
+
 	//Build the ticket name
 	$ticket_name = sanitize_title_with_dashes($data->attendee->id.' '.$data->attendee->fname.' '.$data->attendee->lname);
 
@@ -253,7 +266,6 @@ function espresso_replace_ticket_shortcodes($content, $data) {
         "[description]",
         "[event_link]",
         "[event_url]",
-		"[ticket_quantity]",
 
         //Payment details
         "[cost]",
@@ -296,6 +308,7 @@ function espresso_replace_ticket_shortcodes($content, $data) {
 
 		"[google_map_image]",
         "[google_map_link]",
+		"[seatingchart_tag]",
     );
 
     $ReplaceValues = array(
@@ -313,9 +326,6 @@ function espresso_replace_ticket_shortcodes($content, $data) {
         stripslashes_deep($data->event->event_desc),
        	$data->event_link,
         $data->event_url,
-		
-		//adds the quantity of tickets
-        $data->attendee->quantity > 1? ' (x '.$data->attendee->quantity.')':'',
 
 		//Payment details
         $org_options['currency_symbol'] .' '. espresso_attendee_price(array('registration_id' => $data->attendee->registration_id, 'session_total' => true)),
@@ -358,6 +368,7 @@ function espresso_replace_ticket_shortcodes($content, $data) {
 
 		$data->event->google_map_image,
         $data->event->google_map_link,
+		$data->attendee->seatingchart_tag,
     );
 
 	//Get the questions and answers
