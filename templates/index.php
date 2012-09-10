@@ -36,7 +36,7 @@ if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
 	<form>
 		<input class="print_button noPrint" type="button" value=" Print Ticket " onclick="window.print();return false;" />
 	</form>
-	<form method="post" action="<?php echo espresso_ticket_url($data->attendee->id, $data->attendee->registration_id, '&pdf=true'); ?>" >
+	<form method="post" action="<?php echo espresso_ticket_url($data->attendee->id, $data->attendee->registration_id, 'pdf=true'); ?>" >
 		<input class="print_button noPrint" type="submit" value=" Download PDF " />
 	</form>
 </div>
