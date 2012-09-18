@@ -46,7 +46,7 @@ if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
       <tr>
         <td width="55%" rowspan="2" valign="top"><span class="top_event_title">[event_name]</span><br>
             [start_date] [start_time] <br>
-            [ticket_type]<br>
+            [ticket_type] x [ticket_qty]<br>
             [venue_title]<br>
           
           <div class="logo">[ticket_logo_image]</div></td>
@@ -56,7 +56,8 @@ if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
       <tr>
         <td colspan="2" align="right" valign="top"><span class="price">[cost]</span><br>
           [fname] [lname] (ID: [att_id])<br>
-          [registration_id]</td>
+          [registration_id]<br>
+		  Qty. [ticket_qty]</td>
       </tr>
     </table>
   </div>

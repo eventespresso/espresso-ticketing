@@ -270,6 +270,7 @@ function espresso_replace_ticket_shortcodes($content, $data) {
         //Payment details
         "[cost]",
         "[ticket_type]",
+		"[ticket_qty]",
 
 		//Organization details
         "[company]",
@@ -330,6 +331,7 @@ function espresso_replace_ticket_shortcodes($content, $data) {
 		//Payment details
         $org_options['currency_symbol'] .' '. espresso_attendee_price(array('registration_id' => $data->attendee->registration_id, 'session_total' => true)),
         $data->attendee->price_option,
+		$data->attendee->quantity,
 
 		//Organization details
         stripslashes_deep($org_options['organization']),
