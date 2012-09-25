@@ -9,7 +9,7 @@
   Author: Seth Shoultes
   Author URI: http://www.eventespresso.com
 
-  Copyright (c) 2011 Event Espresso  All Rights Reserved.
+  Copyright (c) 2012 Event Espresso  All Rights Reserved.
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -46,7 +46,8 @@ function ee_ticketing_load_pue_update() {
 			'apikey' => $api_key,
 			'lang_domain' => 'event_espresso',
 			'checkPeriod' => '24',
-			'option_key' => 'site_license_key'
+			'option_key' => 'site_license_key',
+			'options_page_slug' => 'event_espresso'
 		);
 		$check_for_updates = new PluginUpdateEngineChecker($host_server_url, $plugin_slug, $options); //initiate the class and start the plugin update engine!
 	}
