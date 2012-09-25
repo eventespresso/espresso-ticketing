@@ -137,8 +137,13 @@ function espresso_ticket_launch($attendee_id=0, $registration_id=0){
     $data->event = $wpdb->get_row($sql, OBJECT);
 
 	//Get the attendee record
-    $sql = "SELECT ea.* FROM " . EVENTS_ATTENDEE_TABLE . " ea WHERE ea.id = '" . $attendee_id . "' ";
+    $sql = "SELECT ea.* FROM " . EVENTS_ATTENDEE_TABLE . " ea WHERE ea.id = '" . $attendee_id . "' AND ea.registration_id = '" . $registration_id . "' ";
     $data->attendee = $wpdb->get_row($sql, OBJECT);
+	
+	if (empty($data->attendee)){
+		//echo 'Invalid data supplied.';
+		return;
+	}
 
 	//Get the primary/first attendee
 	$data->primary_attendee = espresso_is_primary_attendee($data->attendee->id) == true ? true : false;
