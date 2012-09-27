@@ -203,10 +203,7 @@ function espresso_ticket_launch($attendee_id=0, $registration_id=0){
 		'event_code' => $data->event->event_code,
 		'ticket_type' => $data->attendee->price_option,
 		'event_time' => $data->attendee->event_time,
-		'amount_pd' => espresso_attendee_price(array(
-			'registration_id' => $data->attendee->registration_id,
-			'reg_total' => true
-		)),
+		'final_price' => $data->attendee->final_price,
 	));
 
 	//Build the seating assignment
@@ -334,7 +331,7 @@ function espresso_replace_ticket_shortcodes($content, $data) {
         $data->event_url,
 
 		//Payment details
-        $org_options['currency_symbol'] .' '. espresso_attendee_price(array('registration_id' => $data->attendee->registration_id, 'session_total' => true)),
+        $org_options['currency_symbol'] .' '. $data->attendee->final_price,
         $data->attendee->price_option,
 		$data->attendee->quantity,
 
