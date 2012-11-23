@@ -6,7 +6,7 @@
 
   Version: 2.0.9
 
-  Author: Seth Shoultes
+  Author: Event Espresso
   Author URI: http://www.eventespresso.com
 
   Copyright (c) 2012 Event Espresso  All Rights Reserved.
