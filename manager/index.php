@@ -58,8 +58,8 @@ function espresso_ticket_config_mnu() {
 		?>
 		<p>
 			<?php
-			_e('Create customized ticket template for use in multiple events. ', 'event_espresso');
-			echo apply_filters('filter_hook_espresso_help', 'customized_ticket_info');
+			_e('Create customized ticket template for use in multiple events.', 'event_espresso');
+			//echo apply_filters('filter_hook_espresso_help', 'customized_ticket_info');
 			?>
 		</p>
 		<form id="form1" name="form1" method="post" action="<?php echo $_SERVER["REQUEST_URI"] ?>">
