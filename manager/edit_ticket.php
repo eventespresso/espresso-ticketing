@@ -63,7 +63,7 @@ function edit_event_ticket(){
 									</label>
 									</th>
 									<td>
-										<select id="base-template-select" class="wide"  name="template_file">
+										<select id="base-template-select" class="wide" name="template_file">
 										 <option <?php espresso_file_is_selected($fname,$template_file) ?> value="index.php">
 											<?php _e('Default Template', 'event_espresso'); ?>
 										</option>
