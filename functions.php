@@ -18,21 +18,22 @@ function espresso_ticket_qr_code($atts){
 	 * @return String containing either just a URL or a complete image tag
 	 * @source http://gravatar.com/site/implement/images/php/
 	 */
-	 if (!function_exists('espresso_get_gravatar')) {
+if (!function_exists('espresso_get_gravatar')) {
 	
-		function espresso_get_gravatar( $email, $s = 80, $d = 'mm', $r = 'g', $img = false, $atts = array() ) {
-			$url = 'http://www.gravatar.com/avatar/';
-			$url .= md5( strtolower( trim( $email ) ) );
-			$url .= "?s=$s&d=$d&r=$r";
-			if ( $img ) {
-				$url = '<img src="' . $url . '"';
-				foreach ( $atts as $key => $val )
-					$url .= ' ' . $key . '="' . $val . '"';
-				$url .= ' />';
+	function espresso_get_gravatar( $email, $s = 80, $d = 'mm', $r = 'g', $img = false, $atts = array() ) {
+		$url = 'http://www.gravatar.com/avatar/';
+		$url .= md5( strtolower( trim( $email ) ) );
+		$url .= "?s=$s&d=$d&r=$r";
+		if ( $img ) {
+			$url = '<img src="' . $url . '"';
+			foreach ( $atts as $key => $val ){
+				$url .= ' ' . $key . '="' . $val . '"';
 			}
-			return $url;
+			$url .= ' />';
 		}
-	 }
+		return $url;
+	}
+}
 	 
 function espresso_file_is_selected($name, $selected='') {
 	   $input_item = $name;
@@ -43,6 +44,7 @@ function espresso_file_is_selected($name, $selected='') {
 	   echo  'selected="selected"';
 	   return;
 }
+
 function espresso_ticket_content($id) {
     global $wpdb;
     $results = $wpdb->get_results("SELECT * FROM " . EVENTS_TICKET_TEMPLATES . " WHERE id =" . $id);
@@ -266,8 +268,6 @@ function espresso_replace_ticket_shortcodes($content, $data) {
         "[lname]",
         "[event_name]",
         "[description]",
-        "[event_link]",
-        "[event_url]",
 
         //Payment details
         "[cost]",
@@ -327,8 +327,6 @@ function espresso_replace_ticket_shortcodes($content, $data) {
         stripslashes_deep($data->attendee->lname),
         stripslashes_deep($data->event->event_name),
         stripslashes_deep($data->event->event_desc),
-       	$data->event_link,
-        $data->event_url,
 
 		//Payment details
         $org_options['currency_symbol'] .' '. $data->attendee->final_price,
@@ -372,7 +370,7 @@ function espresso_replace_ticket_shortcodes($content, $data) {
 
 		$data->event->google_map_image,
         $data->event->google_map_link,
-		$data->attendee->seatingchart_tag,
+		isset($data->attendee->seatingchart_tag) && !empty($data->attendee->seatingchart_tag) ? $data->attendee->seatingchart_tag : '',
     );
 
 	//Get the questions and answers
