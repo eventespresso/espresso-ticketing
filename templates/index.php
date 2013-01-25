@@ -40,7 +40,7 @@ if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
 		<input class="print_button noPrint" type="submit" value=" Download PDF " />
 	</form>
 </div>
-  <div class="instructions">Print and bring this ticket with you to the event</div>
+  <div class="instructions"><?php _e('Print and bring this ticket with you to the event', 'event_espresso'); ?></div>
   <div class="ticket">
     <table width="100%" border="0">
       <tr>
@@ -55,9 +55,9 @@ if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
       </tr>
       <tr>
         <td colspan="2" align="right" valign="top"><span class="price">[cost]</span><br>
-          [fname] [lname] (ID: [att_id])<br>
+          [fname] [lname] (<?php _e('ID:', 'event_espresso'); ?> [att_id])<br>
           [registration_id]<br>
-		  Qty. [ticket_qty]</td>
+		  <?php _e('Qty.', 'event_espresso'); ?> [ticket_qty]</td>
       </tr>
     </table>
   </div>
@@ -65,15 +65,15 @@ if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
     <div class="divider"></div>
     <table width="100%" border="0">
       <tr>
-        <td width="45%" height="35" align="left" valign="top"><p><strong>Location:</strong><br>
+        <td width="45%" height="35" align="left" valign="top"><p><strong><?php _e('Location:', 'event_espresso'); ?></strong><br>
             [venue_title]<br>
             [venue_address]<br>
             [venue_city], [venue_state]<br>
             [venue_phone]</p>
-          <p><strong>More Information:</strong><br>
-            [venue_description]</p>
-          <p><strong>Ticket Instructions:</strong><br>
-            [ticket_content]</p></td>
+          <p><strong><?php _e('More Information:', 'event_espresso'); ?></strong></p>
+          <p>[venue_description]</p>
+          <p><strong><?php _e('Ticket Instructions:', 'event_espresso'); ?></strong></p>
+          <p>[ticket_content]</p></td>
         <td width="55%" valign="top">[google_map_image]</td>
       </tr>
     </table>
