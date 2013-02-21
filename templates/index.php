@@ -68,6 +68,7 @@ if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
         <td width="45%" height="35" align="left" valign="top"><p><strong><?php _e('Location:', 'event_espresso'); ?></strong><br>
             [venue_title]<br>
             [venue_address]<br>
+			[venue_address2]<br>
             [venue_city], [venue_state]<br>
             [venue_phone]</p>
           <p><strong><?php _e('More Information:', 'event_espresso'); ?></strong></p>
