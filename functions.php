@@ -348,7 +348,7 @@ function espresso_replace_ticket_shortcodes($content, $data) {
         event_date_display($data->attendee->end_time, get_option('time_format')),
 
 		//Ticket data
-		wpautop(stripslashes_deep(html_entity_decode($data->event->ticket_content, ENT_QUOTES))),
+		espresso_format_content($data->event->ticket_content),
 
 		//Logo
 		$data->event->ticket_logo_url,
@@ -362,11 +362,11 @@ function espresso_replace_ticket_shortcodes($content, $data) {
 		$data->event->state,
 		$data->event->zip,
 		$data->event->country,
-		$data->event->venue_meta['phone'],
-		wpautop(stripslashes_deep(html_entity_decode($data->event->venue_meta['description'], ENT_QUOTES))),
+		isset($data->event->venue_meta['phone']) && !empty($data->event->venue_meta['phone']) ? $data->event->venue_meta['phone'] : '',
+		isset($data->event->venue_meta['description']) && !empty($data->event->venue_meta['description']) ? espresso_format_content($data->event->venue_meta['description']) : '',
 
-		$data->event->venue_meta['website'],
-        $data->event->venue_meta['image'],
+		isset($data->event->venue_meta['website']) && !empty($data->event->venue_meta['website']) ? $data->event->venue_meta['website'] : '',
+        isset($data->event->venue_meta['image']) && !empty($data->event->venue_meta['image']) ? $data->event->venue_meta['image'] : '',
 
 		$data->event->google_map_image,
         $data->event->google_map_link,
