@@ -229,7 +229,7 @@ function espresso_ticket_launch($attendee_id=0, $registration_id=0){
 	if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/index.php")) {
 		require_once(EVENT_ESPRESSO_UPLOAD_DIR . 'tickets/templates/'.$data->event->template_file);
 	} else {
-		require_once('templates/index.php');
+		require_once('templates/'.$data->event->template_file);
 	}
 	$content = ob_get_clean();
 	$content = espresso_replace_ticket_shortcodes($content, $data);
