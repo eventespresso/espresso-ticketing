@@ -9,7 +9,7 @@
 	margin: auto;
 }
 .instructions {
-	width: 750px;
+	width: 700px;
 	margin: auto;
 	background: #d9edf7;
 	color: #3a87ad;
@@ -19,6 +19,9 @@
 	padding: 10px;
 	font-size: 12px;
 	margin-bottom: 20px;
+}
+.hello {
+	width: 500px;
 }
 .hello-top {
 	border-top-left-radius: 10px;
@@ -80,9 +83,15 @@
 }
 
 .divider {
-	margin: auto;
+	margin: 40px auto 0;
 	width: 50%;
 	height: 10px;
 	padding: 5px;
 	border-bottom: 1px dashed;
+}
+
+@media screen and ( min-width: 800px ) {
+	.divider {
+		margin: auto;
+	}
 }
