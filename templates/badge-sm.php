@@ -33,10 +33,10 @@ if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
 	<div class="outside">
 		<div class="print_button_div">
 			<form>
-				<input class="print_button noPrint" type="button" value=" Print Ticket " onclick="window.print();return false;" />
+				<input class="print_button noPrint" type="button" value=" <?php _e( 'Print Ticket', 'event_espresso' ); ?> " onclick="window.print();return false;" />
 			</form>
 			<form method="post" action="<?php echo espresso_ticket_url($data->attendee->id, $data->attendee->registration_id, '&pdf=true'); ?>" >
-				<input class="print_button noPrint" type="submit" value=" Download PDF " />
+				<input class="print_button noPrint" type="submit" value=" <?php _e( 'Download PDF', 'event_espresso' ); ?> " />
 			</form>
 		</div>
 		<div class="instructions"><?php _e( 'Print and bring this badge with you to the event.','event_espresso' ); ?></div>
@@ -60,7 +60,7 @@ if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
 						<span class="attendee-name">[fname] [lname]</span><br>
 						[event_name]<br>
 						[venue_title]<br>
-						<span class="credit">Powered by the <a href="http://eventespresso.com" target="_blank">Event Espresso Ticketing System</a> <img src="<?php echo ESPRESSO_TICKETING_FULL_URL; ?>/templates/img/coffee-cup.png" alt="Event Espresso"></span>
+						<span class="credit"><?php echo sprintf( __( 'Powered by the <a href="%s" target="_blank">Event Espresso Ticketing System</a>', 'event_espresso' ) , 'http://eventespresso.com' ); ?> <img src="<?php echo ESPRESSO_TICKETING_FULL_URL; ?>/templates/img/coffee-cup.png" alt="Event Espresso"></span>
 					</td>
 				</tr>
 			</table>
@@ -72,20 +72,20 @@ if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
 					<td class="attendee" align="left" valign="top">
 						<div class="info-title"><?php _e( 'Ticket information', 'event_espresso' ); ?></div>
 						<p>
-							<span class="attendee-name">[fname] [lname]</span> (ID: [att_id])</p>
+							<span class="attendee-name">[fname] [lname]</span> (<?php _e( 'ID:', 'event_espresso' ); ?> [att_id])</p>
 						<p>
 							[registration_id]
 						</p>
 						<p>
 							<strong>[event_name]</strong><br>
-							# of tickets: [ticket_qty]<br>
+							<?php _e( '# of tickets:', 'event_espresso' ); ?> [ticket_qty]<br>
 							<div class="price">[cost]</div>
 						</p>
 						<p>
 							[qr_code]
 						</p>
 						<p>
-							<div class="info-title">Additional Information</div>
+							<div class="info-title"><?php _e( 'Additional Information', 'event_espresso' ); ?></div>
 						</p>
 						<p>
 							[ticket_content]
@@ -93,15 +93,14 @@ if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
 					</td>
 					<td class="venue" align="left" valign="top">
 						<p>
-							<div class="info-title">Venue Information</div>
+							<div class="info-title"><?php _e( 'Venue Information', 'event_espresso' ); ?></div>
 						</p>
 						<p class="gmap">
 							[google_map_image]
 						</p>
 						<p>
 							<div class="info-title">[venue_title]</div><br>
-							[venue_address]<br>
-							[venue_address2]<br>
+							[venue_address] [venue_address2]<br>
 							[venue_city], [venue_state]<br>
 							[venue_phone]<br>
 							[venue_description]
