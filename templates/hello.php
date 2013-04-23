@@ -2,7 +2,7 @@
 	global $org_options;
 
 	//Build the path to the css files
-	if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/hello.css")) {
+	if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
 		$base_dir = EVENT_ESPRESSO_UPLOAD_URL . 'tickets/templates/css/';//If the template files have been moved to the uploads folder
 	} else {
 		$base_dir = ESPRESSO_TICKETING_FULL_URL.'templates/css/';//Default location
@@ -20,7 +20,7 @@
 		<link rel="stylesheet" type="text/css" href="<?php echo $base_dir; ?>base.css" media="screen" />
 
 		<!-- Primary Style Sheet -->
-		<link rel="stylesheet" type="text/css" href="<?php echo $base_dir.'hello.css'; ?>" />
+		<link rel="stylesheet" type="text/css" href="<?php echo ESPRESSO_TICKETING_FULL_URL .'templates/extra/hello.css'; ?>" />
 
 		<!-- Make sure the buttons don't print -->
 		<style type="text/css">

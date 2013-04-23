@@ -20,7 +20,7 @@ if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
 	<link rel="stylesheet" type="text/css" href="<?php echo $base_dir.'base.css'; ?>" media="screen" />
 
 	<!-- Primary Style Sheet -->
-	<link rel="stylesheet" type="text/css" href="<?php echo $base_dir.'badge-tall.css'; ?>" />
+	<link rel="stylesheet" type="text/css" href="<?php echo ESPRESSO_TICKETING_FULL_URL . 'templates/extra/badge-tall.css'; ?>" />
 
 	<!-- Make sure the buttons don't print -->
 	<style type="text/css">

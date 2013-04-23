@@ -1,0 +1,124 @@
+body{
+	background-color:#47433b;
+}
+.outside{
+	margin:0 auto;
+    width:800px;
+
+}
+.instructions{
+    background:url(../img/printreminder_teal.png) no-repeat;
+    color:#FFF;
+    margin-bottom:0.5em;
+    width: 700px;
+    padding: 10px;
+	font-family:Arial, Helvetica, sans-serif;
+}
+.topbar{
+	background-color:#63abaf;
+    width: 800px;
+	height:4px;
+	padding-top:5px;
+}
+.ticket{
+	position:relative;
+	background: url('../img/deluxe-bg.jpg') no-repeat #FFF;
+    width: 800px;
+    height: 450px;
+    text-align: justify;
+}
+.top_event_title{
+    font-size: 2em;
+    font-weight:bold;
+    margin:0;
+    padding:0;
+}
+.logo {
+    margin-top:2em;
+}
+.qr_code{
+
+	position:absolute;
+	right: 19px;
+    top: 35px;
+	width:135px;
+	height:135px;
+	border:thin 1px #63abaf;
+
+}
+.price{
+    font-size:30px;
+	font-family:Arial, Helvetica, sans-serif;
+	color:#666;
+}
+.extra_info{
+    width: 780px;
+    padding: 10px;
+    text-align: justify;
+	background-color:#FFF;
+	position:relative;
+}
+.divider{
+    border-bottom:dashed #333 1px;
+    width:700px;
+    height:1px;
+    margin:10px 0;
+}
+.footer{
+    font-size:11px;
+}
+hr{
+	color: #fff;
+	background-color: #fff;
+	border: 1px dotted #47433b;
+	border-style: none none dotted; }
+
+.topinfo{
+	padding:15px;
+
+}
+.name{
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	font-size:47px;
+	color:#47433b;
+	padding-bottom:5px;
+}
+
+.title{
+	color:#63abaf;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	font-weight:bold;
+}
+.title2{
+	color:#666666;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	font-weight:bold;
+}
+
+.infotext{
+	color:#666666;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+}
+.mainimage{
+	background:url(images/eventimage.jpg) no-repeat;
+	height:349px;
+}
+.gravatar{
+	z-index:999px;
+	position: absolute;
+    right: 50px;
+    top: 290px;
+	width:200px;
+}
+
+.map{
+	position:absolute;
+	top:20px;
+	right:175px;
+	width:367px;
+	height:168px;
+}
