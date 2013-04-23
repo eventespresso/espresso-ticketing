@@ -34,10 +34,10 @@ if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
 <div class="outside">
 <div class="print_button_div">
 	<form>
-		<input class="print_button noPrint" type="button" value=" Print Ticket " onclick="window.print();return false;" />
+		<input class="print_button noPrint" type="button" value="<?php _e( 'Print Ticket', 'event_espresso' ); ?> " onclick="window.print();return false;" />
 	</form>
 	<form method="post" action="<?php echo espresso_ticket_url($data->attendee->id, $data->attendee->registration_id, '&pdf=true'); ?>" >
-		<input class="print_button noPrint" type="submit" value=" Download PDF " />
+		<input class="print_button noPrint" type="submit" value=" <?php _e( 'Download PDF', 'event_espresso' ); ?> " />
 	</form>
 </div>
   <div class="instructions"><?php _e('Print and bring this ticket with you to the event', 'event_espresso'); ?></div>
@@ -48,7 +48,7 @@ if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
             [start_date] [start_time] <br>
             [ticket_type]<br>
             [venue_title]<br>
-          
+
           <div class="logo">[ticket_logo_image]</div></td>
         <td width="22%" align="right" valign="top"><div class="gravatar">[gravatar]</div></td>
         <td width="23%" align="right" valign="top"><div class="qr_code">[qr_code]</div></td>
@@ -79,7 +79,7 @@ if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
       </tr>
     </table>
   </div>
-  <div class="footer">Powered by the <a href="http://eventespresso.com" target="_blank">Event Espresso Ticketing System</a> for WordPress</div>
+  <div class="footer"><?php echo sprintf( __( 'Powered by the <a href="%s" target="_blank">Event Espresso Ticketing System</a> for WordPress', 'event_espresso' ) , 'http://eventespresso.com' ); ?></div>
 </div>
 </body>
 </html>
