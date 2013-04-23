@@ -1,10 +1,14 @@
+/* for pdfs */
 body{
 	background-color:#47433b;
 }
-.outside{
+#deluxe-ticket .outside{
 	margin:0 auto;
-    width:800px;
+    padding: 0;
 
+}
+.print_button_div input {
+	float: left;
 }
 #deluxe-ticket .instructions{
     background:url(../img/printreminder_teal.png) no-repeat transparent;
@@ -16,21 +20,22 @@ body{
 	text-align: left;
 	font-weight: normal;
 	border: none;
+	clear: both;
 }
 .topbar{
 	background-color:#63abaf;
-    width: 800px;
+    width: 700px;
 	height:4px;
 	padding-top:5px;
 }
 #deluxe-ticket .ticket{
-	position:relative;
 	padding: 0;
 	background: url('../img/deluxe-bg.jpg') no-repeat #FFF;
-    width: 800px;
+    width: 700px;
     height: 450px;
     text-align: left;
     border: none;
+    border-spacing: 0;
 }
 .top_event_title{
     font-size: 2em;
@@ -38,21 +43,16 @@ body{
     margin:0;
     padding:0;
 }
-.logo {
-    margin:2em 0 0 15px;
+.logo img {
+    margin:0 0 0 15px;
 }
 .infotext.reg-id {
 	font-size: 0.7em;
 }
-.qr_code{
-
-	position:absolute;
-	right: 19px;
-    top: 35px;
+.qr_code img{
 	width:135px;
 	height:135px;
-	border:thin 1px #63abaf;
-
+	border:1px solid #63abaf;
 }
 .price{
     font-size:30px;
@@ -60,7 +60,7 @@ body{
 	color:#666;
 }
 #deluxe-ticket .extra_info{
-    width: 780px;
+    width: 700px;
     padding: 10px;
     text-align: justify;
 	background-color:#FFF;
@@ -77,7 +77,8 @@ body{
 }
 
 .topinfo{
-	padding:15px;
+	padding:0 15px;
+	height: 150px;
 
 }
 .name{
@@ -108,16 +109,27 @@ body{
 }
 
 .gravatar{
-	z-index:999px;
-	position: absolute;
-    right: 50px;
-    top: 290px;
 	width:200px;
+	padding-bottom: 20px;
+}
+.attendee {
+	margin-top: 10px;
+}
+.map img{
+	height:168px;
+}
+.footer { margin-top: 5px; }
+.footer, .footer a {
+	color: #f2f0eb;
+	font-family: Helvetica, Arial, sans-serif;
 }
 
-.map img{
-	position:absolute;
-	top:20px;
-	right:175px;
-	height:168px;
+/* for screens */
+@media screen and ( min-width: 800px ) {
+	.topbar, #deluxe-ticket .ticket {
+		width: 800px;
+	}
+	#deluxe-ticket .extra_info {
+		width: 800px;
+	}
 }

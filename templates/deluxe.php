@@ -14,7 +14,7 @@ if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title><?php echo stripslashes_deep($org_options['organization']) ?> <?php _e('Ticket for', 'event_espresso'); ?> <?php echo stripslashes_deep($data->attendee->fname . ' ' .$data->attendee->lname) ?> | <?php echo $data->attendee->registration_id ?></title>
+<title><?php echo stripslashes_deep($org_options['organization']) ?> <?php echo sprintf( __( 'Ticket for %s', 'event_espresso' ), stripslashes_deep($data->attendee->fname . ' ' .$data->attendee->lname) ); ?> | <?php echo $data->attendee->registration_id ?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- Base Stylesheet do not change or remove -->
 <link rel="stylesheet" type="text/css" href="<?php echo ESPRESSO_TICKETING_FULL_URL; ?>templates/extra/deluxe.css" media="screen" />
@@ -35,41 +35,58 @@ if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
 	<div class="outside">
 		<div class="print_button_div">
 			<form>
-				<input class="print_button noPrint" type="button" value=" Print Ticket " onclick="window.print();return false;" />
+				<input class="print_button noPrint" type="button" value=" <?php _e( 'Print Ticket', 'event_espresso' ); ?> " onclick="window.print();return false;" />
 			</form>
 			<form method="post" action="<?php echo espresso_ticket_url($data->attendee->id, $data->attendee->registration_id, '&pdf=true'); ?>" >
-				<input class="print_button noPrint" type="submit" value=" Download PDF " />
+				<input class="print_button noPrint" type="submit" value=" <?php _e( 'Download PDF', 'event_espresso' ); ?> " />
 			</form>
 		</div>
-		<div class="instructions">Print and bring this ticket with you to the event</div>
-		<div class="ticket">
-			<div class="topbar"></div>
-			<div class="topinfo">
-				<span class="name">[event_name]</span><br>
-				<span class="title">information: </span><span class="infotext">[ticket_content]</span><br>
-			</div>
-			<div class="mainimage">
-				<div class="logo">[ticket_logo_image]</div>
-				<div class="gravatar">
-		    		[gravatar]<br>
-		    		<span class="title2">[fname] [lname] (ID: [att_id])</span><br>
-					<span class="infotext reg-id">[registration_id]</span><br>
-		    	</div>
-			</div>
-		</div>
+		<div class="instructions"><?php _e( 'Print and bring this ticket with you to the event', 'event_espresso' ); ?></div>
+		<table class="ticket">
+			<tr>
+				<td colspan="2" class="topbar"></td>
+			</tr>
+			<tr>
+				<td colspan="2" class="topinfo">
+					<span class="name">[event_name]</span><br>
+					<span class="title"><?php _e( 'information:', 'event_espresso' ); ?> </span><span class="infotext">[ticket_content]</span>
+				</td>
+			</tr>
+			<tr>
+				<td class="logo">
+					[ticket_logo_image]
+				</td>
+				<td class="gravatar" valign="bottom">
+		    		[gravatar]
+		    		<div class="attendee">
+			    		<span class="title2">[fname] [lname] (<?php _e( 'ID:', 'event_espresso' ); ?> [att_id])</span><br>
+						<span class="infotext reg-id">[registration_id]</span>
+					</div>
+		    	</td>
+		    </tr>
+		</table>
 		<div class="topbar"></div>
-		<div class="extra_info">
-			<span class="price">[cost]</span><br>
-		    <span class="title">when: </span><span class="infotext">[start_date] [start_time]</span><br>
-		    <span class="title">what: </span><span class="infotext">[ticket_type]</span><br>
-		    <span class="title">where: </span><span class="infotext">[venue_title]</span><br><br>
-		    <span class="title">location: </span><br>
-		    <span class="infotext">[venue_address]</span><br>
-		    <span class="infotext">[venue_city], [venue_state]</span><br>
-		    <span class="infotext">[venue_phone]</span></td><br><br>
-			<span class="map">[google_map_image]</span>
-			<span class="qr_code">[qr_code]</span>
-		</div>
+		<table class="extra_info">
+			<tr>
+				<td class="ticket-info" width="50%">
+					<span class="price">[cost]</span><br>
+				    <span class="title"><?php _e( 'when:', 'event_espresso' ); ?> </span><span class="infotext">[start_date] [start_time]</span><br>
+				    <span class="title"><?php _e( 'what:', 'event_espresso' ); ?> </span><span class="infotext">[ticket_type]</span><br>
+				    <span class="title"><?php _e( 'where:', 'event_espresso' ); ?> </span><span class="infotext">[venue_title]</span><br><br>
+				    <span class="title"><?php _e( 'location:', 'event_espresso' ); ?> </span><br>
+				    <span class="infotext">[venue_address]</span><br>
+				    <span class="infotext">[venue_city], [venue_state]</span><br>
+				    <span class="infotext">[venue_phone]</span>
+				</td>
+				<td>
+					<span class="map">[google_map_image]</span>
+				</td>
+				<td>
+					<span class="qr_code">[qr_code]</span>
+				</td>
+			</tr>
+		</table>
+		<div class="footer"><?php echo sprintf( __( 'Powered by the <a href="%s" target="_blank">Event Espresso Ticketing System</a> for WordPress', 'event_espresso' ) , 'http://eventespresso.com' ); ?></div>
 	</div>
 </body>
 </html>
