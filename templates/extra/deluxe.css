@@ -1,6 +1,6 @@
 /* for pdfs */
 body{
-	background-color:#47433b;
+	background-color:#333;
 }
 #deluxe-ticket .outside{
 	margin:0 auto;
@@ -23,7 +23,7 @@ body{
     border-spacing: 0;
     margin: 10px;
     border: none;
-    border-top: 10px solid #63abaf;
+    border-top: 10px solid #000000;
 }
 #deluxe-ticket .ticket td {
 	background: transparent;
@@ -43,7 +43,7 @@ body{
 .qr_code img{
 	width:135px;
 	height:135px;
-	border:1px solid #63abaf;
+	border:1px solid #000000;
 }
 .price{
     font-size:30px;
@@ -51,7 +51,7 @@ body{
 	color:#666;
 }
 #deluxe-ticket .extra_info{
-	border-top: 10px solid #63abaf;
+	border-top: 10px solid #000000;
     width: 725px;
     padding: 10px;
     text-align: justify;
@@ -79,7 +79,7 @@ body{
 }
 
 .title{
-	color:#63abaf;
+	color:#000000;
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:14px;
 	font-weight:bold;
@@ -133,10 +133,10 @@ body{
 		border-top: none;
 	}
 	.topinfo {
-		border-top: 10px solid #63abaf;
+		border-top: 10px solid #000000;
 	}
 	#deluxe-ticket .instructions {
-	    background:url(../img/printreminder_teal.png) no-repeat transparent;
+		background: transparent;
 	    color:#FFF;
 	    margin-bottom:0.5em;
 	    width: 700px;
