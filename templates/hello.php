@@ -98,10 +98,10 @@
 									<td width="33%" align="center">
 										[qr_code]
 									</td>
-									<td>
-										[event_name]<br>
-										# of tickets: [ticket_qty]<br>
-										<div class="price">[cost]</div>
+									<td valign="middle">
+										<p>[event_name]<br>
+										# of tickets: [ticket_qty]</p>
+										<p class="price">[cost]</p>
 									</td>
 								</tr>
 							</table>
@@ -116,13 +116,12 @@
 							<p>
 								<div class="info-title">Venue Information</div>
 							</p>
-							<p>
+							<p class="gmap">
 								[google_map_image]
 							</p>
 							<p>
 								<div class="info-title">[venue_title]</div><br>
-								[venue_address]<br>
-								[venue_address2]<br>
+								[venue_address] [venue_address2]<br>
 								[venue_city], [venue_state]<br>
 								[venue_phone]<br>
 								[venue_description]
