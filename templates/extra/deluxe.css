@@ -23,12 +23,14 @@ body{
 	height:4px;
 	padding-top:5px;
 }
-.ticket{
+#deluxe-ticket .ticket{
 	position:relative;
+	padding: 0;
 	background: url('../img/deluxe-bg.jpg') no-repeat #FFF;
     width: 800px;
     height: 450px;
-    text-align: justify;
+    text-align: left;
+    border: none;
 }
 .top_event_title{
     font-size: 2em;
@@ -37,7 +39,10 @@ body{
     padding:0;
 }
 .logo {
-    margin-top:2em;
+    margin:2em 0 0 15px;
+}
+.infotext.reg-id {
+	font-size: 0.7em;
 }
 .qr_code{
 
@@ -54,7 +59,7 @@ body{
 	font-family:Arial, Helvetica, sans-serif;
 	color:#666;
 }
-.extra_info{
+#deluxe-ticket .extra_info{
     width: 780px;
     padding: 10px;
     text-align: justify;
@@ -70,11 +75,6 @@ body{
 .footer{
     font-size:11px;
 }
-hr{
-	color: #fff;
-	background-color: #fff;
-	border: 1px dotted #47433b;
-	border-style: none none dotted; }
 
 .topinfo{
 	padding:15px;
@@ -106,10 +106,7 @@ hr{
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:14px;
 }
-.mainimage{
-	background:url(images/eventimage.jpg) no-repeat;
-	height:349px;
-}
+
 .gravatar{
 	z-index:999px;
 	position: absolute;
@@ -118,10 +115,9 @@ hr{
 	width:200px;
 }
 
-.map{
+.map img{
 	position:absolute;
 	top:20px;
 	right:175px;
-	width:367px;
 	height:168px;
 }

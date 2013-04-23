@@ -43,34 +43,30 @@ if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
 		</div>
 		<div class="instructions">Print and bring this ticket with you to the event</div>
 		<div class="ticket">
-			<div class="topbar">
-				<hr>
-			</div>
+			<div class="topbar"></div>
 			<div class="topinfo">
 				<span class="name">[event_name]</span><br>
-				<span class="infotext">[fname] [lname] (ID: [att_id])</span><br>
-				<span class="title">credits: </span><span class="infotext">[number_credits] </span><br>
+				<span class="title">information: </span><span class="infotext">[ticket_content]</span><br>
 			</div>
 			<div class="mainimage">
+				<div class="logo">[ticket_logo_image]</div>
 				<div class="gravatar">
-		    		<img src="images/gravatar.jpg"><br>
-		    		<span class="title2"></span><br>
-					<span class="infotext">[registration_id]</span><br>
+		    		[gravatar]<br>
+		    		<span class="title2">[fname] [lname] (ID: [att_id])</span><br>
+					<span class="infotext reg-id">[registration_id]</span><br>
 		    	</div>
 			</div>
-			<div class="topbar">
-				<hr>
-			</div>
 		</div>
+		<div class="topbar"></div>
 		<div class="extra_info">
 			<span class="price">[cost]</span><br>
 		    <span class="title">when: </span><span class="infotext">[start_date] [start_time]</span><br>
 		    <span class="title">what: </span><span class="infotext">[ticket_type]</span><br>
-		    <span class="title">where: </span><span class="infotext">[venue_title]</span><br><br> 
+		    <span class="title">where: </span><span class="infotext">[venue_title]</span><br><br>
 		    <span class="title">location: </span><br>
 		    <span class="infotext">[venue_address]</span><br>
 		    <span class="infotext">[venue_city], [venue_state]</span><br>
-		    <span class="infotext">[venue_phone]></span></td><br><br>
+		    <span class="infotext">[venue_phone]</span></td><br><br>
 			<span class="map">[google_map_image]</span>
 			<span class="qr_code">[qr_code]</span>
 		</div>
