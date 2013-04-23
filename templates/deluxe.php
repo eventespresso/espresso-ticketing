@@ -42,30 +42,33 @@ if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
 			</form>
 		</div>
 		<div class="instructions"><?php _e( 'Print and bring this ticket with you to the event', 'event_espresso' ); ?></div>
+
 		<table class="ticket">
 			<tr>
-				<td colspan="2" class="topbar"></td>
-			</tr>
-			<tr>
 				<td colspan="2" class="topinfo">
-					<span class="name">[event_name]</span><br>
-					<span class="title"><?php _e( 'information:', 'event_espresso' ); ?> </span><span class="infotext">[ticket_content]</span>
+					<p>
+						<span class="name">[event_name]</span><br>
+						<span class="title"><?php _e( 'information:', 'event_espresso' ); ?> </span><span class="infotext">[ticket_content]</span>
+					</p>
 				</td>
 			</tr>
 			<tr>
 				<td class="logo">
-					[ticket_logo_image]
+					<p>
+						[ticket_logo_image]
+					</p>
 				</td>
 				<td class="gravatar" valign="bottom">
-		    		[gravatar]
-		    		<div class="attendee">
+					<p>
+		    			[gravatar]
+		    		</p>
+		    		<p class="attendee">
 			    		<span class="title2">[fname] [lname] (<?php _e( 'ID:', 'event_espresso' ); ?> [att_id])</span><br>
 						<span class="infotext reg-id">[registration_id]</span>
-					</div>
+					</p>
 		    	</td>
 		    </tr>
 		</table>
-		<div class="topbar"></div>
 		<table class="extra_info">
 			<tr>
 				<td class="ticket-info" width="50%">

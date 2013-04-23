@@ -11,31 +11,22 @@ body{
 	float: left;
 }
 #deluxe-ticket .instructions{
-    background:url(../img/printreminder_teal.png) no-repeat transparent;
-    color:#FFF;
-    margin-bottom:0.5em;
-    width: 700px;
-    padding: 10px;
-	font-family:Arial, Helvetica, sans-serif;
-	text-align: left;
-	font-weight: normal;
-	border: none;
-	clear: both;
+	display: none;
 }
-.topbar{
-	background-color:#63abaf;
-    width: 700px;
-	height:4px;
-	padding-top:5px;
-}
+
 #deluxe-ticket .ticket{
 	padding: 0;
 	background: url('../img/deluxe-bg.jpg') no-repeat #FFF;
-    width: 700px;
+    width: 725px;
     height: 450px;
     text-align: left;
-    border: none;
     border-spacing: 0;
+    margin: 10px;
+    border: none;
+    border-top: 10px solid #63abaf;
+}
+#deluxe-ticket .ticket td {
+	background: transparent;
 }
 .top_event_title{
     font-size: 2em;
@@ -60,20 +51,18 @@ body{
 	color:#666;
 }
 #deluxe-ticket .extra_info{
-    width: 700px;
+	border-top: 10px solid #63abaf;
+    width: 725px;
     padding: 10px;
     text-align: justify;
 	background-color:#FFF;
-	position:relative;
+	margin: 0 10px;
 }
 .divider{
     border-bottom:dashed #333 1px;
     width:700px;
     height:1px;
     margin:10px 0;
-}
-.footer{
-    font-size:11px;
 }
 
 .topinfo{
@@ -118,18 +107,45 @@ body{
 .map img{
 	height:168px;
 }
-.footer { margin-top: 5px; }
+.footer {
+	font-size:11px;
+	font-family: Helvetica, Arial, sans-serif;
+	margin-bottom: 50px;
+	margin-left: 10px;
+}
 .footer, .footer a {
 	color: #f2f0eb;
-	font-family: Helvetica, Arial, sans-serif;
 }
 
 /* for screens */
 @media screen and ( min-width: 800px ) {
-	.topbar, #deluxe-ticket .ticket {
+
+	 #deluxe-ticket .ticket {
 		width: 800px;
 	}
 	#deluxe-ticket .extra_info {
 		width: 800px;
+		margin: 0 0 5px;
+	}
+	.footer { margin: 0;}
+	#deluxe-ticket .ticket {
+		margin: 0;
+		border-top: none;
+	}
+	.topinfo {
+		border-top: 10px solid #63abaf;
+	}
+	#deluxe-ticket .instructions {
+	    background:url(../img/printreminder_teal.png) no-repeat transparent;
+	    color:#FFF;
+	    margin-bottom:0.5em;
+	    width: 700px;
+	    padding: 10px;
+		font-family:Arial, Helvetica, sans-serif;
+		text-align: left;
+		font-weight: normal;
+		border: none;
+		clear: both;
+		display: block;
 	}
 }
