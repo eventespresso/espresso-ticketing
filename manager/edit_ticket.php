@@ -55,7 +55,6 @@ function edit_event_ticket(){
 										</select>
 									</td>
 								</tr>
-								<?php if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/index.php")) { ?>
 								<tr>
 									<th>
 									<label for="base-template-select">
@@ -73,7 +72,7 @@ function edit_event_ticket(){
 										</select>
 									</td>
 								</tr>
-								<?php } ?>
+
 						  <?php
 							if(!empty($ticket_logo_url)){ 
 								$ticket_logo = $ticket_logo_url;
