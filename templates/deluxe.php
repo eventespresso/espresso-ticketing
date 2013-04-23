@@ -31,7 +31,7 @@ if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
 
 </head>
 
-<body>
+<body id="deluxe-ticket">
 	<div class="outside">
 		<div class="print_button_div">
 			<form>

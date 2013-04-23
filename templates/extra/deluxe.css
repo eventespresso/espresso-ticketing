@@ -6,13 +6,16 @@ body{
     width:800px;
 
 }
-.instructions{
-    background:url(../img/printreminder_teal.png) no-repeat;
+#deluxe-ticket .instructions{
+    background:url(../img/printreminder_teal.png) no-repeat transparent;
     color:#FFF;
     margin-bottom:0.5em;
     width: 700px;
     padding: 10px;
 	font-family:Arial, Helvetica, sans-serif;
+	text-align: left;
+	font-weight: normal;
+	border: none;
 }
 .topbar{
 	background-color:#63abaf;
