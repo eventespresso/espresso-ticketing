@@ -98,7 +98,7 @@ function espresso_ticket_template_files() {
 
 	$files = array();
 
-	$exclude = array( '.', '..', '.svn', '.DS_Store', basename($_SERVER['PHP_SELF']) );
+	$exclude = array( '.', '..', '.svn', '.DS_Store', 'img', 'extra', basename($_SERVER['PHP_SELF']) );
 
 	//if we manage to open the directory
 	if ($dhandle) {
