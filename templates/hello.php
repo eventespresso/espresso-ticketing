@@ -33,19 +33,18 @@
 		<div class="outside">
 			<div class="print_button_div">
 				<form>
-					<input class="print_button noPrint" type="button" value=" Print Ticket " onclick="window.print();return false;" />
+					<input class="print_button noPrint" type="button" value=" <?php _e( 'Print Ticket', 'event_espresso' ); ?> " onclick="window.print();return false;" />
 				</form>
 				<form method="post" action="<?php echo espresso_ticket_url($data->attendee->id, $data->attendee->registration_id, '&pdf=true'); ?>" >
-					<input class="print_button noPrint" type="submit" value=" Download PDF " />
+					<input class="print_button noPrint" type="submit" value=" <?php _e( 'Download PDF', 'event_espresso' ); ?> " />
 				</form>
 			</div>
-			<div class="instructions">Print and bring this ticket with you to the event.</div>
+			<div class="instructions"><?php _e( 'Print and bring this ticket with you to the event.', 'event_espresso' ); ?></div>
 			<div class="ticket">
 				<table class="hello" border="0">
 					<tr>
 						<td width="100%" colspan="3" class="hello-top" valign="top">
-							<span class="top_event_title">Hello</span><br>
-							my name is
+							<?php echo sprintf( __( '%1$sHello%2$s my name is', 'event_espresso' ), '<span class="top_event_title">', '</span><br>' ); ?>
 						</td>
 					</tr>
 					<tr>
@@ -63,7 +62,7 @@
 								</tr>
 								<tr>
 									<td width="100%" class="credit" border="0">
-										Powered by the <a href="http://eventespresso.com" target="_blank">Event Espresso Ticketing System</a> for WordPress
+										<?php echo sprintf( __( 'Powered by the <a href="%s" target="_blank">Event Espresso Ticketing System</a> for WordPress', 'event_espresso' ) , 'http://eventespresso.com' ); ?>
 									</td>
 								</tr>
 							</table>
@@ -77,7 +76,7 @@
 					<tr>
 						<td width="45%" align="left" valign="top">
 							<p>
-								<div class="info-title">Attendee Information</div>
+								<div class="info-title"><?php _e( 'Attendee Information', 'event_espresso' ); ?></div>
 							</p>
 							<table width="100%">
 								<tr>
@@ -91,7 +90,7 @@
 								</tr>
 							</table>
 							<p>
-								<div class="info-title">Ticket Information</div>
+								<div class="info-title"><?php _e( 'Ticket Information', 'event_espresso' ); ?></div>
 							</p>
 							<table width="100%">
 								<tr>
@@ -100,13 +99,13 @@
 									</td>
 									<td valign="middle">
 										<p>[event_name]<br>
-										# of tickets: [ticket_qty]</p>
+										<?php _e( '# of tickets:', 'event_espresso' ); ?> [ticket_qty]</p>
 										<p class="price">[cost]</p>
 									</td>
 								</tr>
 							</table>
 							<p>
-								<div class="info-title">Additional Information</div>
+								<div class="info-title"><?php _e( 'Additional Information', 'event_espresso' ); ?></div>
 							</p>
 							<p>
 								[ticket_content]
@@ -114,7 +113,7 @@
 						</td>
 						<td width="55%" align="left" valign="top">
 							<p>
-								<div class="info-title">Venue Information</div>
+								<div class="info-title"><?php _e( 'Venue Information', 'event_espresso' ); ?></div>
 							</p>
 							<p class="gmap">
 								[google_map_image]
