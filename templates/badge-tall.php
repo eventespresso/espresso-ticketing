@@ -84,7 +84,7 @@ if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
 					<td class="attendee" align="left" valign="top">
 						<div class="info-title"><?php _e( 'Ticket information', 'event_espresso' ); ?></div>
 						<p>
-							<span class="attendee-name">[fname] [lname]</span> (<?php _e( 'ID:', 'event_espresso' ): ?> [att_id])</p>
+							<span class="attendee-name">[fname] [lname]</span> (<?php _e( 'ID:', 'event_espresso' ); ?> [att_id])</p>
 						<p>
 							[registration_id]
 						</p>
