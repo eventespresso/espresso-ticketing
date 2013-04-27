@@ -86,6 +86,8 @@ if (!function_exists('espresso_ticketing_install')) {
 		update_option('espresso_ticketing_active', 1);
 		global $wpdb;
 
+		$table_version = ESPRESSO_TICKETING_VERSION;
+
 		$table_name = "events_ticket_templates";
 		$sql = "id int(11) unsigned NOT NULL AUTO_INCREMENT,
 			ticket_name VARCHAR(100) DEFAULT NULL,
@@ -98,7 +100,7 @@ if (!function_exists('espresso_ticketing_install')) {
 			wp_user int(22) DEFAULT '1',
 			UNIQUE KEY id (id)";
 
-		event_espresso_run_install($table_name, $sql);
+		event_espresso_run_install($table_name, $table_version, $sql);
 
 		$table_name = "events_attendee_checkin";
     	$sql = "id int(11) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -109,7 +111,7 @@ if (!function_exists('espresso_ticketing_install')) {
 			date_scanned datetime NOT NULL,
             KEY attendee_id (attendee_id, registration_id, event_id)";
 		
-		event_espresso_run_install($table_name, $sql);
+		event_espresso_run_install($table_name, $table_version, $sql);
 	}
 
 }
