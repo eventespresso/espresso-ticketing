@@ -55,19 +55,19 @@ if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
 					</td>
 				</tr>
 				<tr>
-					<td class="gravatar" valign="middle">
+					<td class="gravatar" valign="middle" width="40">
 						[gravatar]
 					</td>
 					<td class="attendee-details" valign="middle">
 						<span class="attendee-name">[fname] [lname]</span><br>
 						<?php _e( 'Attendee #:', 'event_espresso' ); ?> [att_id]<br>
 						[ticket_type]<br>
-						<span class="reg-id"><?php _e( 'Registration ID:', 'event_espresso' ); ?> [registration_id]</span>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2" class="qr">
-						[qr_code]
+						[qr_code]<br>
+						<span class="reg-id"><?php _e( 'Registration ID:', 'event_espresso' ); ?> [registration_id]</span>
 					</td>
 				</tr>
 				<tr>
