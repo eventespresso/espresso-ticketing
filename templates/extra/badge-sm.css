@@ -20,37 +20,41 @@ body {
 .badge {
 	margin: 20px auto;
 	background: #fff;
-	width: 232px;
-	height: 142px;
+	width: 328px;
+	height: 203px;
 	padding: 10px;
 	border: 1px solid #ddd;
 }
 .logo {
 	text-align: left;
+	width: 100%;
 }
 .logo img {
-	width: 152px!important;
+	width: 250px!important;
 	height: auto!important;
 }
 .gravatar {
 	text-align: right;
+	width: 69px;
 }
 .gravatar img {
 	width: 67px;
 }
 .qr img {
-	width: 56px;
+	width: 100px;
 }
 .attendee-info {
+	width: 220px;
 	text-align: right;
-	font-size: 10px;
+	padding-top: 20px;
+	font-size: 14px;
 }
 .attendee-name {
-	font-size: 18px;
+	font-size: 20px;
 }
 .credit, .credit a {
 	color: #909090;
-	font-size: 0.8em;
+	font-size: 8px;
 }
 .credit img {
 	position: relative;

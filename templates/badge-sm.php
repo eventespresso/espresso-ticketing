@@ -56,7 +56,7 @@ if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
 					<td class="qr" valign="middle">
 						[qr_code]
 					</td>
-					<td class="attendee-info" valign="top">
+					<td class="attendee-info" valign="top" width="160" align="right">
 						<span class="attendee-name">[fname] [lname]</span><br>
 						[event_name]<br>
 						[venue_title]<br>
