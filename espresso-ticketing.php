@@ -4,7 +4,7 @@
   Plugin URI: http://eventespresso.com/
   Description: Ticketing system for Event Espresso
 
-  Version: 2.0.9
+  Version: 2.1
 
   Author: Event Espresso
   Author URI: http://www.eventespresso.com
