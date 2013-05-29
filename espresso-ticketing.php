@@ -27,7 +27,7 @@
  */
  //Define the version of the plugin
 function espresso_ticketing_version() {
-	return '2.0.9';
+	return '2.1-dev';
 }
 
 //Update notifications
@@ -41,7 +41,7 @@ function ee_ticketing_load_pue_update() {
 		require(EVENT_ESPRESSO_PLUGINFULLPATH . 'class/pue/pue-client.php' );
 		$api_key = $org_options['site_license_key'];
 		$host_server_url = 'http://eventespresso.com';
-		$plugin_slug = 'espresso-ticketing';
+		$plugin_slug = 'espresso-ticketing-pr';
 		$options = array(
 			'apikey' => $api_key,
 			'lang_domain' => 'event_espresso',
@@ -109,6 +109,8 @@ if (!function_exists('espresso_ticketing_install')) {
 			event_id int(11) NOT NULL,
 			checked_in int(11) NOT NULL,
 			date_scanned datetime NOT NULL,
+			method varchar(50) NOT NULL,
+			type varchar(50) NOT NULL,
             KEY attendee_id (attendee_id, registration_id, event_id)";
 		
 		event_espresso_run_install($table_name, $table_version, $sql);
