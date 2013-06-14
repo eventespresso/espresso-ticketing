@@ -81,7 +81,6 @@ if (!function_exists('espresso_ticketing_deactivate')) {
 if (!function_exists('espresso_ticketing_install')) {
 
 	function espresso_ticketing_install() {
-
 		update_option('espresso_ticketing_version', ESPRESSO_TICKETING_VERSION);
 		update_option('espresso_ticketing_active', 1);
 		global $wpdb;
@@ -122,6 +121,22 @@ if (!function_exists('espresso_ticketing_install')) {
 //Install plugin
 register_activation_hook( __FILE__, 'espresso_ticketing_install' );
 register_deactivation_hook( __FILE__, 'espresso_ticketing_deactivate' );
+
+
+
+/**
+ *         captures plugin activation errors for debugging
+ *
+ *         @access public
+ *         @return void
+ */
+function espresso_ticketing_plugin_activation_errors() {
+    if ( WP_DEBUG === TRUE ) {
+        file_put_contents( WP_CONTENT_DIR. '/uploads/espresso/logs/espresso_ticketing_plugin_activation_errors.html', ob_get_contents() );
+    }    
+}
+add_action('activated_plugin', 'espresso_ticketing_plugin_activation_errors'); 
+
 
 function espresso_ticket_url($attendee_id, $registration_id, $extra = ''){
 	$extra = empty($extra) ? '' : '&amp;'.$extra;
