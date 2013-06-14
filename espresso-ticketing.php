@@ -100,6 +100,9 @@ if (!function_exists('espresso_ticketing_install')) {
 			wp_user int(22) DEFAULT '1',
 			UNIQUE KEY id (id)";
 
+		if ( ! function_exists( 'event_espresso_run_install' )) {
+			require_once( EVENT_ESPRESSO_PLUGINFULLPATH . 'includes/functions/database_install.php' ); 		
+		}
 		event_espresso_run_install($table_name, $table_version, $sql);
 
 		$table_name = "events_attendee_checkin";
