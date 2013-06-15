@@ -97,7 +97,7 @@ if (!function_exists('espresso_ticketing_install')) {
 			ticket_logo_url TEXT,
 			ticket_meta LONGTEXT DEFAULT NULL,
 			wp_user int(22) DEFAULT '1',
-			UNIQUE KEY id (id)";
+			PRIMARY KEY  (id)";
 
 		if ( ! function_exists( 'event_espresso_run_install' )) {
 			require_once( EVENT_ESPRESSO_PLUGINFULLPATH . 'includes/functions/database_install.php' ); 		
@@ -105,13 +105,16 @@ if (!function_exists('espresso_ticketing_install')) {
 		event_espresso_run_install($table_name, $table_version, $sql);
 
 		$table_name = "events_attendee_checkin";
-    	$sql = "id int(11) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    		$sql = "id int(11) unsigned NOT NULL AUTO_INCREMENT,
 			attendee_id int(11) NOT NULL,
 			registration_id varchar(23) NOT NULL,
 			event_id int(11) NOT NULL,
 			checked_in int(11) NOT NULL,
 			date_scanned datetime NOT NULL,
-            KEY attendee_id (attendee_id, registration_id, event_id)";
+			PRIMARY KEY  (id),
+			KEY attendee_id (attendee_id),
+			KEY registration_id (registration_id),
+			KEY event_id (event_id)";
 		
 		event_espresso_run_install($table_name, $table_version, $sql);
 	}
