@@ -1,4 +1,5 @@
 <?php
+
 /**
   Plugin Name: Event Espresso - Ticketing
   Plugin URI: http://eventespresso.com/
@@ -25,29 +26,30 @@
   along with this program; if not, write to the Free Software
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
- //Define the version of the plugin
+//Define the version of the plugin
 function espresso_ticketing_version() {
 	return '2.1-ALPHA';
 }
 
 //Update notifications
 add_action('action_hook_espresso_ticketing_update_api', 'ee_ticketing_load_pue_update');
+
 function ee_ticketing_load_pue_update() {
 	global $org_options, $espresso_check_for_updates;
-	if ( $espresso_check_for_updates == false )
+	if ($espresso_check_for_updates == false)
 		return;
-		
+
 	if (file_exists(EVENT_ESPRESSO_PLUGINFULLPATH . 'class/pue/pue-client.php')) { //include the file 
 		require(EVENT_ESPRESSO_PLUGINFULLPATH . 'class/pue/pue-client.php' );
 		$api_key = $org_options['site_license_key'];
 		$host_server_url = 'http://eventespresso.com';
 		$plugin_slug = 'espresso-ticketing-pr';
 		$options = array(
-			'apikey' => $api_key,
-			'lang_domain' => 'event_espresso',
-			'checkPeriod' => '24',
-			'option_key' => 'site_license_key',
-			'options_page_slug' => 'event_espresso'
+				'apikey' => $api_key,
+				'lang_domain' => 'event_espresso',
+				'checkPeriod' => '24',
+				'option_key' => 'site_license_key',
+				'options_page_slug' => 'event_espresso'
 		);
 		$check_for_updates = new PluginUpdateEngineChecker($host_server_url, $plugin_slug, $options); //initiate the class and start the plugin update engine!
 	}
@@ -81,7 +83,6 @@ if (!function_exists('espresso_ticketing_deactivate')) {
 if (!function_exists('espresso_ticketing_install')) {
 
 	function espresso_ticketing_install() {
-
 		update_option('espresso_ticketing_version', ESPRESSO_TICKETING_VERSION);
 		update_option('espresso_ticketing_active', 1);
 		global $wpdb;
@@ -98,12 +99,15 @@ if (!function_exists('espresso_ticketing_install')) {
 			ticket_logo_url TEXT,
 			ticket_meta LONGTEXT DEFAULT NULL,
 			wp_user int(22) DEFAULT '1',
-			UNIQUE KEY id (id)";
+			PRIMARY KEY  (id)";
 
+		if (!function_exists('event_espresso_run_install')) {
+			require_once( EVENT_ESPRESSO_PLUGINFULLPATH . 'includes/functions/database_install.php' );
+		}
 		event_espresso_run_install($table_name, $table_version, $sql);
 
 		$table_name = "events_attendee_checkin";
-    	$sql = "id int(11) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+		$sql = "id int(11) unsigned NOT NULL AUTO_INCREMENT,
 			attendee_id int(11) NOT NULL,
 			registration_id varchar(23) NOT NULL,
 			event_id int(11) NOT NULL,
@@ -111,35 +115,49 @@ if (!function_exists('espresso_ticketing_install')) {
 			date_scanned datetime NOT NULL,
 			method varchar(50) NOT NULL,
 			type varchar(50) NOT NULL";
-		
+
 		event_espresso_run_install($table_name, $table_version, $sql);
 	}
 
 }
 
 //Install plugin
-register_activation_hook( __FILE__, 'espresso_ticketing_install' );
-register_deactivation_hook( __FILE__, 'espresso_ticketing_deactivate' );
+register_activation_hook(__FILE__, 'espresso_ticketing_install');
+register_deactivation_hook(__FILE__, 'espresso_ticketing_deactivate');
 
-function espresso_ticket_url($attendee_id, $registration_id, $extra = ''){
-	$extra = empty($extra) ? '' : '&amp;'.$extra;
-	return home_url().'/?ticket_launch=true&amp;id='.$attendee_id.'&amp;r_id='. $registration_id.'&amp;html=true'.$extra;
+/**
+ *         captures plugin activation errors for debugging
+ *
+ *         @access public
+ *         @return void
+ */
+function espresso_ticketing_plugin_activation_errors() {
+	if (WP_DEBUG === TRUE) {
+		file_put_contents(WP_CONTENT_DIR . '/uploads/espresso/logs/espresso_ticketing_plugin_activation_errors.html', ob_get_contents());
+	}
+}
+
+add_action('activated_plugin', 'espresso_ticketing_plugin_activation_errors');
+
+function espresso_ticket_url($attendee_id, $registration_id, $extra = '') {
+	$extra = empty($extra) ? '' : '&amp;' . $extra;
+	return home_url() . '/?ticket_launch=true&amp;id=' . $attendee_id . '&amp;r_id=' . $registration_id . '&amp;html=true' . $extra;
 }
 
 if (!function_exists("espresso_enqueue_admin_ticketing_menu_css")) {
-    function espresso_enqueue_admin_ticketing_menu_css(){
-        if ( is_admin() && function_exists('espresso_version') && espresso_version() >= '3.2.P' ){
-            wp_enqueue_style('espresso_ticketing_menu', ESPRESSO_TICKETING_FULL_URL . 'css/admin-menu-styles.css');
-        }
 
-        if (isset($_REQUEST['page']) && $_REQUEST['page']=='event_tickets') {
-        	wp_enqueue_style('espresso_ticketing', ESPRESSO_TICKETING_FULL_URL . 'css/admin-styles.css');
-        }
-    }
+	function espresso_enqueue_admin_ticketing_menu_css() {
+		if (is_admin() && function_exists('espresso_version') && espresso_version() >= '3.2.P') {
+			wp_enqueue_style('espresso_ticketing_menu', ESPRESSO_TICKETING_FULL_URL . 'css/admin-menu-styles.css');
+		}
+
+		if (isset($_REQUEST['page']) && $_REQUEST['page'] == 'event_tickets') {
+			wp_enqueue_style('espresso_ticketing', ESPRESSO_TICKETING_FULL_URL . 'css/admin-styles.css');
+		}
+	}
+
 }
 add_action('init', 'espresso_enqueue_admin_ticketing_menu_css');
-
-
 
 function espresso_event_attendee_table_ticketing_header($t_cols) {
 	?>
