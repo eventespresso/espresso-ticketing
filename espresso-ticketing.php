@@ -65,11 +65,7 @@ define("EVENTS_TICKET_TEMPLATES", $wpdb->prefix . "events_ticket_templates");
 //echo $espresso_path;
 require_once(ESPRESSO_TICKETING_FULL_PATH . 'functions.php');
 require_once(ESPRESSO_TICKETING_FULL_PATH . 'manager/index.php');
-/* function event_espresso_ticket_config_mnu() {
-  } */
-//Install plugin
-register_activation_hook(__FILE__, 'espresso_ticketing_install');
-register_deactivation_hook(__FILE__, 'espresso_ticketing_deactivate');
+
 //Deactivate the plugin
 if (!function_exists('espresso_ticketing_deactivate')) {
 
