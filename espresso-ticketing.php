@@ -115,7 +115,7 @@ if (!function_exists('espresso_ticketing_install')) {
 			checked_in int(11) NOT NULL,
 			date_scanned datetime NOT NULL,
 			method varchar(50) NOT NULL,
-			type varchar(50) NOT NULL,
+			type varchar(50) NOT NULL";
 
 		event_espresso_run_install($table_name, $table_version, $sql);
 	}
