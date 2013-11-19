@@ -397,8 +397,10 @@ function espresso_replace_ticket_shortcodes($content, $data) {
 	//echo '<p>'.print_r($data->event->event_meta).'</p>';
 	if (!empty($data->event->event_meta)){
 		foreach($data->event->event_meta as $k=>$v){
-			array_push($SearchValues,"[".$k."]");
-			array_push($ReplaceValues,stripslashes_deep($v));
+			if (!is_array($v)) {
+				array_push($SearchValues,"[".$k."]");
+				array_push($ReplaceValues,stripslashes_deep($v));
+			}
 		}
 	}
 
