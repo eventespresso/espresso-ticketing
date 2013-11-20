@@ -430,7 +430,8 @@ if ( !function_exists( 'espresso_ticket_dd' ) ){
 		if ( function_exists('espresso_version') && espresso_version() >= '3.2' ){
 			$ee_help = '<a class="thickbox" target="_blank" href="#TB_inline?height=400&width=500&inlineId=custom_ticket_info"><span class="question"> [?]</span></a>';
 		}else{
-			$ee_help = ' <a class="thickbox" href="#TB_inline?height=300&width=400&inlineId=status_types_info"><img src="' . EVENT_ESPRESSO_PLUGINFULLURL . '/images/question-frame.png" width="16" height="16" /></a>';
+			//$ee_help = ' <a class="thickbox" href="#TB_inline?height=300&width=400&inlineId=status_types_info"><img src="' . EVENT_ESPRESSO_PLUGINFULLURL . '/images/question-frame.png" width="16" height="16" /></a>';
+			$ee_help = '';
 		}
 		$html = '<p><label for="ticket_id">' .__('Custom Ticket ','event_espresso') . '</label>' . $field .  $ee_help . '</p>';
 		return $html;
