@@ -55,7 +55,7 @@ if (file_exists(EVENT_ESPRESSO_UPLOAD_DIR . "tickets/templates/css/base.css")) {
 					</td>
 				</tr>
 				<tr>
-					<td class="gravatar" valign="middle" width="40">
+					<td class="gravatar" valign="middle" width="110">
 						[gravatar]
 					</td>
 					<td class="attendee-details" valign="middle">
