@@ -146,7 +146,8 @@ add_action('activated_plugin', 'espresso_ticketing_plugin_activation_errors');
 
 function espresso_ticket_url($attendee_id, $registration_id, $extra = '') {
 	$extra = empty($extra) ? '' : '&amp;' . $extra;
-	return home_url() . '/?ticket_launch=true&amp;id=' . $attendee_id . '&amp;r_id=' . $registration_id . '&amp;html=true' . $extra;
+	$scheme = apply_filters( 'filter_hook_espresso_ticket_link_url_scheme', 'http' );
+	return home_url( '', $scheme ) . '/?ticket_launch=true&amp;id=' . $attendee_id . '&amp;r_id=' . $registration_id . '&amp;html=true' . $extra;
 }
 
 if (!function_exists("espresso_enqueue_admin_ticketing_menu_css")) {
