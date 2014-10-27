@@ -5,7 +5,7 @@
   Plugin URI: http://eventespresso.com/
   Description: Ticketing system for Event Espresso
 
-  Version: 2.1.p
+  Version: 2.2.0.p
 
   Author: Event Espresso
   Author URI: http://www.eventespresso.com
@@ -28,7 +28,7 @@
  */
 //Define the version of the plugin
 function espresso_ticketing_version() {
-	return '2.1.p';
+	return '2.2.0.p';
 }
 
 //Update notifications
