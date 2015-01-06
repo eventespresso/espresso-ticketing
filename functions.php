@@ -234,7 +234,7 @@ function espresso_ticket_launch($attendee_id=0, $registration_id=0){
 		require_once('templates/'.$data->event->template_file);
 	}
 	$content = ob_get_clean();
-	$content = espresso_replace_ticket_shortcodes($content, $data);
+	$content = apply_filters( 'filter_hook_espresso_ticketing_replace_shortcodes', $content, $data );
 
 	//Check if debugging or mobile is set
 	if ( (isset($_REQUEST['pdf']) && $_REQUEST['pdf']==true)){
@@ -254,7 +254,8 @@ function espresso_ticket_launch($attendee_id=0, $registration_id=0){
 
 }
 
-//Performst the shortcode replacement
+//Performs the shortcode replacement
+add_filter( 'filter_hook_espresso_ticketing_replace_shortcodes', 'espresso_replace_ticket_shortcodes', 10, 2 );
 function espresso_replace_ticket_shortcodes($content, $data) {
     global $wpdb, $org_options;
     $SearchValues = array(
